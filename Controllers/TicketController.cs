@@ -35,14 +35,12 @@ namespace CinemaApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            // Retrieve the current user
             var userId = _userManager.GetUserId(User);
             if (string.IsNullOrEmpty(userId))
             {
                 return Unauthorized();
             }
 
-            // Set the authenticated user's ID in the ticket
             var ticket = new Ticket
             {
                 ProjectionId = request.ProjectionId,
@@ -78,7 +76,6 @@ namespace CinemaApp.Controllers
         [HttpGet("api/tickets/mytickets")]
         public  IActionResult GetMyTickets()
         {
-            // Get the user's ID from the claims in the token
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId == null)

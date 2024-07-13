@@ -52,7 +52,6 @@ namespace CinemaApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //return BadRequest(ModelState);
 
                 var errors = ModelState.Values.SelectMany(v => v.Errors)
                                       .Select(e => e.ErrorMessage)

@@ -73,18 +73,6 @@ namespace CinemaApp.Controllers
             sortBy,
             sortDescending);
 
-           /* var projectionsDto = projections.Select(p => new ProjectionDTO
-            {
-                Id = p.Id,
-                MovieId = p.Movie.Id,
-                MovieTitle = p.Movie.Title,
-                ProjectionType = p.ProjectionType.Type.ToString(),
-                Theater = p.Theater.Type.ToString(),
-                DateTime = p.DateTime,
-                Price = p.Price,
-                UnsoldTicketsCount = p.Theater.Capacity - p.Tickets.Count()
-            }).ToList();*/
-
             var projectionsDto = _mapper.Map<IEnumerable<ProjectionDTO>>(projections);
             return Ok(projectionsDto);
             
@@ -99,11 +87,6 @@ namespace CinemaApp.Controllers
             {
                 return NotFound();
             }
-
-            /*var availableSeats = seats.Where(s => s.IsAvailable);
-
-            var availableSeatsDTO = _mapper.Map<IEnumerable<SeatDTO>>(availableSeats);
-            return Ok(availableSeatsDTO);*/
 
             var seatsDTO = _mapper.Map<IEnumerable<SeatDTO>>(seats);
             return Ok(seatsDTO);
