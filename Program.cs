@@ -61,7 +61,7 @@ builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins("*") // Replace "*" with specific origins
+        builder => builder.WithOrigins("*") 
                           .AllowAnyHeader()
                           .AllowAnyMethod());
 });

@@ -101,10 +101,9 @@ namespace CinemaApp.Controllers
                 return BadRequest($"User creation failed: {string.Join(", ", errors)}");
             }
 
-            // Set default role to "User" if none is provided
             var userRole = string.IsNullOrEmpty(model.Role) ? "User" : model.Role;
 
-            // Map input roles to system roles
+            
             switch (userRole.ToLower())
             {
                 case "administrator":
@@ -116,13 +115,11 @@ namespace CinemaApp.Controllers
                     break;
             }
 
-            // Check if role exists, if not create it
             if (!await _roleManager.RoleExistsAsync(userRole))
             {
                 await _roleManager.CreateAsync(new IdentityRole(userRole));
             }
 
-            // Assign role to the user
             await _userManager.AddToRoleAsync(user, userRole);
            
 
