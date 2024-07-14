@@ -189,5 +189,31 @@ namespace CinemaApp.Controllers
             return Ok(userInfo);
         }
 
+        [HttpPost]
+        [Route("change-password")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDTO model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid password change parameters.");
+            }
+
+            var user = await _userManager.FindByNameAsync(model.Username);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+            if (!result.Succeeded)
+            {
+                var errors = result.Errors.Select(e => e.Description);
+                return BadRequest($"Password change failed: {string.Join(", ", errors)}");
+            }
+
+            return Ok(new { message = "Password changed successfully!" });
+        }
+
     }
 }
