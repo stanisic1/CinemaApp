@@ -215,5 +215,30 @@ namespace CinemaApp.Controllers
             return Ok(new { message = "Password changed successfully!" });
         }
 
+        [HttpGet]
+        [Route("all-users")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = _userManager.Users.ToList();
+            var userDTOs = new List<UserDTO>();
+
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                var role = roles.FirstOrDefault();
+
+                userDTOs.Add(new UserDTO
+                {
+                    Username = user.UserName,
+                    Email = user.Email,
+                    Role = role
+                });
+            }
+
+            return Ok(userDTOs);
+        }
+
+
     }
 }
