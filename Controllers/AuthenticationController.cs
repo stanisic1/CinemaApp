@@ -230,6 +230,7 @@ namespace CinemaApp.Controllers
 
                 userDTOs.Add(new UserDTO
                 {
+                    Id = user.Id,
                     Username = user.UserName,
                     Email = user.Email,
                     Role = role

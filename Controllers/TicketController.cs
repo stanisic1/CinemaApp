@@ -90,5 +90,25 @@ namespace CinemaApp.Controllers
             return Ok(new { values = ticketsDto });
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpGet("api/tickets/usertickets/{id}")]
+        public IActionResult GetUserTickets(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("User ID cannot be null or empty");
+            }
+
+            var tickets = _ticketRepository.GetTicketsByUserId(id);
+            if (tickets == null || !tickets.Any())
+            {
+                return Ok(new { values = new List<UserTicketsDTO>() });
+            }
+
+            var ticketsDto = _mapper.Map<IEnumerable<UserTicketsDTO>>(tickets);
+            return Ok(new { values = ticketsDto });
+        }
+
+
     }
 }
