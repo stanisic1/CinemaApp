@@ -1,5 +1,6 @@
 ﻿using CinemaApp.Interfaces;
 using CinemaApp.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CinemaApp.Repository

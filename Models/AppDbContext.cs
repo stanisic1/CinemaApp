@@ -74,14 +74,14 @@ namespace CinemaApp.Models
                  .HasOne(p => p.Administrator)
                  .WithMany()
                  .HasForeignKey(p => p.AdministratorId)
-                 .OnDelete(DeleteBehavior.Restrict);
+                 .OnDelete(DeleteBehavior.Cascade);
 
             // Configure the foreign key between Tickets and Projections
             modelBuilder.Entity<Ticket>()
                 .HasOne(t => t.Projection)
                 .WithMany(p => p.Tickets)
                 .HasForeignKey(t => t.ProjectionId)
-                .OnDelete(DeleteBehavior.Restrict); // Specify ON DELETE RESTRICT
+                .OnDelete(DeleteBehavior.Cascade); // Specify ON DELETE RESTRICT
 
             // Configure the foreign key between Tickets and Seats
             modelBuilder.Entity<Ticket>()

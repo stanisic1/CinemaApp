@@ -4,6 +4,7 @@ using CinemaApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240716135409_cascadeInstedRestrict")]
+    partial class cascadeInstedRestrict
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,7 +94,7 @@ namespace CinemaApp.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e239f9f-2393-4606-9566-a5abcd6448a5",
+                            ConcurrencyStamp = "b1603170-615f-4ba6-a509-80920b7f57fb",
                             Email = "admin1@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -99,7 +102,7 @@ namespace CinemaApp.Migrations
                             NormalizedUserName = "ADMIN1",
                             PasswordHash = "AQAAAAEAACcQAAAAEBUxA0d/A3X8Q3QfYkAAAAAO5BZ0AICgWZk=",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "809adc98-cc0a-45b7-870d-d90f6ec9a16b",
+                            SecurityStamp = "93d7e55a-7249-47f6-8ba2-5ee54c379c14",
                             TwoFactorEnabled = false,
                             UserName = "admin1"
                         },
@@ -107,7 +110,7 @@ namespace CinemaApp.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "99c1b66a-409a-481c-b2e1-7dce08ba4f5e",
+                            ConcurrencyStamp = "5b5b003c-9b9c-43d8-b4d1-3e981693c681",
                             Email = "admin2@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -115,7 +118,7 @@ namespace CinemaApp.Migrations
                             NormalizedUserName = "ADMIN2",
                             PasswordHash = "AQAAAAEAACcQAAAAEBUxA0d/A3X8Q3QfYkAAAAAO5BZ0AICgWZk=",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "da1b7c42-2640-4d45-bfc9-ce7440d7975d",
+                            SecurityStamp = "524946d7-7f78-46df-b20c-ed6ac56545cf",
                             TwoFactorEnabled = false,
                             UserName = "admin2"
                         });
@@ -244,7 +247,7 @@ namespace CinemaApp.Migrations
                         {
                             Id = 1,
                             AdministratorId = "1",
-                            DateTime = new DateTime(2024, 7, 16, 16, 5, 24, 733, DateTimeKind.Local).AddTicks(7440),
+                            DateTime = new DateTime(2024, 7, 16, 15, 54, 7, 426, DateTimeKind.Local).AddTicks(3291),
                             IsDeleted = false,
                             MovieId = 1,
                             Price = 500m,
@@ -255,7 +258,7 @@ namespace CinemaApp.Migrations
                         {
                             Id = 2,
                             AdministratorId = "2",
-                            DateTime = new DateTime(2024, 7, 16, 16, 5, 24, 733, DateTimeKind.Local).AddTicks(7579),
+                            DateTime = new DateTime(2024, 7, 16, 15, 54, 7, 426, DateTimeKind.Local).AddTicks(3447),
                             IsDeleted = false,
                             MovieId = 2,
                             Price = 500m,
@@ -3553,7 +3556,7 @@ namespace CinemaApp.Migrations
                         {
                             Id = 1,
                             ProjectionId = 1,
-                            SaleDateTime = new DateTime(2024, 7, 16, 16, 5, 24, 733, DateTimeKind.Local).AddTicks(7805),
+                            SaleDateTime = new DateTime(2024, 7, 16, 15, 54, 7, 426, DateTimeKind.Local).AddTicks(3570),
                             SeatId = 1,
                             UserId = "1"
                         },
@@ -3561,7 +3564,7 @@ namespace CinemaApp.Migrations
                         {
                             Id = 2,
                             ProjectionId = 2,
-                            SaleDateTime = new DateTime(2024, 7, 16, 16, 5, 24, 733, DateTimeKind.Local).AddTicks(7827),
+                            SaleDateTime = new DateTime(2024, 7, 16, 15, 54, 7, 426, DateTimeKind.Local).AddTicks(3590),
                             SeatId = 2,
                             UserId = "2"
                         });
@@ -3758,7 +3761,7 @@ namespace CinemaApp.Migrations
                     b.HasOne("CinemaApp.Models.Projection", "Projection")
                         .WithMany("Tickets")
                         .HasForeignKey("ProjectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CinemaApp.Models.Seat", "Seat")

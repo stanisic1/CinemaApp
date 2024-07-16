@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace CinemaApp.Controllers
 {
@@ -218,9 +219,13 @@ namespace CinemaApp.Controllers
         [HttpGet]
         [Route("all-users")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(string? username, string? sortBy = null, string? sortDirection = null)
         {
-            var users = _userManager.Users.ToList();
+            var usersQuery = string.IsNullOrEmpty(username)
+                            ? _userManager.Users
+                            : _userManager.Users.Where(u => u.UserName.Contains(username));
+
+            var users = await usersQuery.ToListAsync();
             var userDTOs = new List<UserDTO>();
 
             foreach (var user in users)
@@ -237,9 +242,48 @@ namespace CinemaApp.Controllers
                 });
             }
 
+            // Sorting if sortBy and sortDirection are provided
+            if (!string.IsNullOrEmpty(sortBy) && !string.IsNullOrEmpty(sortDirection))
+            {
+                switch (sortBy.ToLower())
+                {
+                    case "role":
+                        userDTOs = sortDirection.ToLower() == "asc"
+                            ? userDTOs.OrderBy(u => u.Role).ToList()
+                            : userDTOs.OrderByDescending(u => u.Role).ToList();
+                        break;
+                    case "username":
+                        userDTOs = sortDirection.ToLower() == "asc"
+                            ? userDTOs.OrderBy(u => u.Username).ToList()
+                            : userDTOs.OrderByDescending(u => u.Username).ToList();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             return Ok(userDTOs);
         }
 
+        [HttpDelete]
+        [Route("delete-user/{userId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting user.");
+            }
+
+            return Ok(new { message = "User deleted successfully!" });
+        }
 
     }
 }
