@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace CinemaApp.Controllers
 {
@@ -19,12 +20,14 @@ namespace CinemaApp.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<AuthenticationController> _logger;
 
-        public AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public AuthenticationController(ILogger<AuthenticationController> logger, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -134,31 +137,52 @@ namespace CinemaApp.Controllers
         {
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning("Invalid role update parameters.");
                 return BadRequest("Invalid role update parameters.");
             }
 
             var user = await _userManager.FindByNameAsync(model.Username);
             if (user == null)
             {
+                _logger.LogWarning($"User not found: {model.Username}");
                 return NotFound("User not found.");
             }
 
-            var currentRoles = await _userManager.GetRolesAsync(user);
-            var removeRolesResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            var validRoles = new List<string> { "User", "Admin" };
 
+            var receivedRole = model.Role.Trim();
+            _logger.LogInformation($"Received Role: {receivedRole}");
+
+            var normalizedRole = validRoles.FirstOrDefault(role => string.Equals(role, receivedRole, StringComparison.OrdinalIgnoreCase));
+            _logger.LogInformation($"Normalized Role: {normalizedRole}");
+
+            if (normalizedRole == null)
+            {
+                _logger.LogWarning($"Invalid role specified: {receivedRole}");
+                return BadRequest("Invalid role specified.");
+            }
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
+            _logger.LogInformation($"Current Roles: {string.Join(", ", currentRoles)}");
+
+            var removeRolesResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
             if (!removeRolesResult.Succeeded)
             {
+                _logger.LogError($"Error removing user roles for {user.UserName}: {string.Join(", ", removeRolesResult.Errors.Select(e => e.Description))}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error removing user roles.");
             }
 
-            var addRoleResult = await _userManager.AddToRoleAsync(user, model.Role);
+            var addRoleResult = await _userManager.AddToRoleAsync(user, normalizedRole);
             if (!addRoleResult.Succeeded)
             {
+                _logger.LogError($"Error adding user role for {user.UserName}: {string.Join(", ", addRoleResult.Errors.Select(e => e.Description))}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error adding user role.");
             }
 
+            _logger.LogInformation($"User role updated successfully for {user.UserName}");
             return Ok(new { message = "User role updated successfully!" });
         }
+
 
         [HttpGet]
         [Route("userinfo")]
@@ -169,6 +193,34 @@ namespace CinemaApp.Controllers
             if (userId == null)
             {
                 return Unauthorized();
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var role = roles.FirstOrDefault();
+
+            var userInfo = new UserInfoDTO
+            {
+                Username = user.UserName,
+                Email = user.Email,
+                Role = role
+            };
+
+            return Ok(userInfo);
+        }
+        [HttpGet]
+        [Route("userinfo/{userId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetUserInfoByAdmin(string userId)
+        {
+            if (userId == null)
+            {
+                return BadRequest();
             }
 
             var user = await _userManager.FindByIdAsync(userId);
