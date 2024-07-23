@@ -159,7 +159,33 @@ namespace CinemaApp.Controllers
             };
 
             _projectionRepository.Add(projection);
+
+            AddSeatsForProjection(projection);
+
             return CreatedAtAction("GetProjection", new { id = projection.Id }, projection);
+        }
+
+        private void AddSeatsForProjection(Projection projection)
+        {
+            var theater = _theaterRepository.GetById(projection.TheaterId);
+            if (theater == null)
+            {
+                throw new Exception("Theater not found");
+            }
+
+            var seats = new List<Seat>();
+            for (int seatNumber = 1; seatNumber <= theater.Capacity; seatNumber++)
+            {
+                seats.Add(new Seat
+                {
+                    Number = seatNumber,
+                    TheaterId = theater.Id,
+                    ProjectionId = projection.Id,
+                    IsAvailable = true
+                });
+            }
+
+            _projectionRepository.AddSeats(seats);
         }
 
         [Authorize(Roles = "Admin")]

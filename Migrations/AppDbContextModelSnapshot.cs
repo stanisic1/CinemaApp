@@ -91,15 +91,15 @@ namespace CinemaApp.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e239f9f-2393-4606-9566-a5abcd6448a5",
+                            ConcurrencyStamp = "0693bd91-7741-4a9d-ab35-ff20c5a81985",
                             Email = "admin1@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN1@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBUxA0d/A3X8Q3QfYkAAAAAO5BZ0AICgWZk=",
+                            PasswordHash = "AQAAAAIAAYagAAAAECr9IvlgKvhYnCc0oFGjxb0TuTEhc+0SnDBR7VJ3mv8jiRB13LH6UoPwxYkuNhmdLQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "809adc98-cc0a-45b7-870d-d90f6ec9a16b",
+                            SecurityStamp = "",
                             TwoFactorEnabled = false,
                             UserName = "admin1"
                         },
@@ -107,15 +107,15 @@ namespace CinemaApp.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "99c1b66a-409a-481c-b2e1-7dce08ba4f5e",
+                            ConcurrencyStamp = "faf3580b-7ddb-4d42-be7a-b6bb98c69ca7",
                             Email = "admin2@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN2@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBUxA0d/A3X8Q3QfYkAAAAAO5BZ0AICgWZk=",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGQf+2KBrR/+XzPgUQH6nlyTqfyQ7A8nGZxnN6aCcwAtaE/gATdMBoGVUCCjdycnsQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "da1b7c42-2640-4d45-bfc9-ce7440d7975d",
+                            SecurityStamp = "",
                             TwoFactorEnabled = false,
                             UserName = "admin2"
                         });
@@ -244,7 +244,7 @@ namespace CinemaApp.Migrations
                         {
                             Id = 1,
                             AdministratorId = "1",
-                            DateTime = new DateTime(2024, 7, 16, 16, 5, 24, 733, DateTimeKind.Local).AddTicks(7440),
+                            DateTime = new DateTime(2024, 7, 23, 17, 35, 31, 804, DateTimeKind.Local).AddTicks(5343),
                             IsDeleted = false,
                             MovieId = 1,
                             Price = 500m,
@@ -255,7 +255,7 @@ namespace CinemaApp.Migrations
                         {
                             Id = 2,
                             AdministratorId = "2",
-                            DateTime = new DateTime(2024, 7, 16, 16, 5, 24, 733, DateTimeKind.Local).AddTicks(7579),
+                            DateTime = new DateTime(2024, 7, 23, 17, 35, 31, 804, DateTimeKind.Local).AddTicks(5551),
                             IsDeleted = false,
                             MovieId = 2,
                             Price = 500m,
@@ -316,10 +316,15 @@ namespace CinemaApp.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProjectionId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TheaterId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjectionId");
 
                     b.HasIndex("TheaterId");
 
@@ -331,6 +336,7 @@ namespace CinemaApp.Migrations
                             Id = 1,
                             IsAvailable = true,
                             Number = 1,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -338,6 +344,7 @@ namespace CinemaApp.Migrations
                             Id = 2,
                             IsAvailable = true,
                             Number = 2,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -345,6 +352,7 @@ namespace CinemaApp.Migrations
                             Id = 3,
                             IsAvailable = true,
                             Number = 3,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -352,6 +360,7 @@ namespace CinemaApp.Migrations
                             Id = 4,
                             IsAvailable = true,
                             Number = 4,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -359,6 +368,7 @@ namespace CinemaApp.Migrations
                             Id = 5,
                             IsAvailable = true,
                             Number = 5,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -366,6 +376,7 @@ namespace CinemaApp.Migrations
                             Id = 6,
                             IsAvailable = true,
                             Number = 6,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -373,6 +384,7 @@ namespace CinemaApp.Migrations
                             Id = 7,
                             IsAvailable = true,
                             Number = 7,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -380,6 +392,7 @@ namespace CinemaApp.Migrations
                             Id = 8,
                             IsAvailable = true,
                             Number = 8,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -387,6 +400,7 @@ namespace CinemaApp.Migrations
                             Id = 9,
                             IsAvailable = true,
                             Number = 9,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -394,6 +408,7 @@ namespace CinemaApp.Migrations
                             Id = 10,
                             IsAvailable = true,
                             Number = 10,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -401,6 +416,7 @@ namespace CinemaApp.Migrations
                             Id = 11,
                             IsAvailable = true,
                             Number = 11,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -408,6 +424,7 @@ namespace CinemaApp.Migrations
                             Id = 12,
                             IsAvailable = true,
                             Number = 12,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -415,6 +432,7 @@ namespace CinemaApp.Migrations
                             Id = 13,
                             IsAvailable = true,
                             Number = 13,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -422,6 +440,7 @@ namespace CinemaApp.Migrations
                             Id = 14,
                             IsAvailable = true,
                             Number = 14,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -429,6 +448,7 @@ namespace CinemaApp.Migrations
                             Id = 15,
                             IsAvailable = true,
                             Number = 15,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -436,6 +456,7 @@ namespace CinemaApp.Migrations
                             Id = 16,
                             IsAvailable = true,
                             Number = 16,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -443,6 +464,7 @@ namespace CinemaApp.Migrations
                             Id = 17,
                             IsAvailable = true,
                             Number = 17,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -450,6 +472,7 @@ namespace CinemaApp.Migrations
                             Id = 18,
                             IsAvailable = true,
                             Number = 18,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -457,6 +480,7 @@ namespace CinemaApp.Migrations
                             Id = 19,
                             IsAvailable = true,
                             Number = 19,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -464,6 +488,7 @@ namespace CinemaApp.Migrations
                             Id = 20,
                             IsAvailable = true,
                             Number = 20,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -471,6 +496,7 @@ namespace CinemaApp.Migrations
                             Id = 21,
                             IsAvailable = true,
                             Number = 21,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -478,6 +504,7 @@ namespace CinemaApp.Migrations
                             Id = 22,
                             IsAvailable = true,
                             Number = 22,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -485,6 +512,7 @@ namespace CinemaApp.Migrations
                             Id = 23,
                             IsAvailable = true,
                             Number = 23,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -492,6 +520,7 @@ namespace CinemaApp.Migrations
                             Id = 24,
                             IsAvailable = true,
                             Number = 24,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -499,6 +528,7 @@ namespace CinemaApp.Migrations
                             Id = 25,
                             IsAvailable = true,
                             Number = 25,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -506,6 +536,7 @@ namespace CinemaApp.Migrations
                             Id = 26,
                             IsAvailable = true,
                             Number = 26,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -513,6 +544,7 @@ namespace CinemaApp.Migrations
                             Id = 27,
                             IsAvailable = true,
                             Number = 27,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -520,6 +552,7 @@ namespace CinemaApp.Migrations
                             Id = 28,
                             IsAvailable = true,
                             Number = 28,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -527,6 +560,7 @@ namespace CinemaApp.Migrations
                             Id = 29,
                             IsAvailable = true,
                             Number = 29,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -534,6 +568,7 @@ namespace CinemaApp.Migrations
                             Id = 30,
                             IsAvailable = true,
                             Number = 30,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -541,6 +576,7 @@ namespace CinemaApp.Migrations
                             Id = 31,
                             IsAvailable = true,
                             Number = 31,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -548,6 +584,7 @@ namespace CinemaApp.Migrations
                             Id = 32,
                             IsAvailable = true,
                             Number = 32,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -555,6 +592,7 @@ namespace CinemaApp.Migrations
                             Id = 33,
                             IsAvailable = true,
                             Number = 33,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -562,6 +600,7 @@ namespace CinemaApp.Migrations
                             Id = 34,
                             IsAvailable = true,
                             Number = 34,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -569,6 +608,7 @@ namespace CinemaApp.Migrations
                             Id = 35,
                             IsAvailable = true,
                             Number = 35,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -576,6 +616,7 @@ namespace CinemaApp.Migrations
                             Id = 36,
                             IsAvailable = true,
                             Number = 36,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -583,6 +624,7 @@ namespace CinemaApp.Migrations
                             Id = 37,
                             IsAvailable = true,
                             Number = 37,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -590,6 +632,7 @@ namespace CinemaApp.Migrations
                             Id = 38,
                             IsAvailable = true,
                             Number = 38,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -597,6 +640,7 @@ namespace CinemaApp.Migrations
                             Id = 39,
                             IsAvailable = true,
                             Number = 39,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -604,6 +648,7 @@ namespace CinemaApp.Migrations
                             Id = 40,
                             IsAvailable = true,
                             Number = 40,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -611,6 +656,7 @@ namespace CinemaApp.Migrations
                             Id = 41,
                             IsAvailable = true,
                             Number = 41,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -618,6 +664,7 @@ namespace CinemaApp.Migrations
                             Id = 42,
                             IsAvailable = true,
                             Number = 42,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -625,6 +672,7 @@ namespace CinemaApp.Migrations
                             Id = 43,
                             IsAvailable = true,
                             Number = 43,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -632,6 +680,7 @@ namespace CinemaApp.Migrations
                             Id = 44,
                             IsAvailable = true,
                             Number = 44,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -639,6 +688,7 @@ namespace CinemaApp.Migrations
                             Id = 45,
                             IsAvailable = true,
                             Number = 45,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -646,6 +696,7 @@ namespace CinemaApp.Migrations
                             Id = 46,
                             IsAvailable = true,
                             Number = 46,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -653,6 +704,7 @@ namespace CinemaApp.Migrations
                             Id = 47,
                             IsAvailable = true,
                             Number = 47,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -660,6 +712,7 @@ namespace CinemaApp.Migrations
                             Id = 48,
                             IsAvailable = true,
                             Number = 48,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -667,6 +720,7 @@ namespace CinemaApp.Migrations
                             Id = 49,
                             IsAvailable = true,
                             Number = 49,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -674,6 +728,7 @@ namespace CinemaApp.Migrations
                             Id = 50,
                             IsAvailable = true,
                             Number = 50,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -681,6 +736,7 @@ namespace CinemaApp.Migrations
                             Id = 51,
                             IsAvailable = true,
                             Number = 51,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -688,6 +744,7 @@ namespace CinemaApp.Migrations
                             Id = 52,
                             IsAvailable = true,
                             Number = 52,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -695,6 +752,7 @@ namespace CinemaApp.Migrations
                             Id = 53,
                             IsAvailable = true,
                             Number = 53,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -702,6 +760,7 @@ namespace CinemaApp.Migrations
                             Id = 54,
                             IsAvailable = true,
                             Number = 54,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -709,6 +768,7 @@ namespace CinemaApp.Migrations
                             Id = 55,
                             IsAvailable = true,
                             Number = 55,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -716,6 +776,7 @@ namespace CinemaApp.Migrations
                             Id = 56,
                             IsAvailable = true,
                             Number = 56,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -723,6 +784,7 @@ namespace CinemaApp.Migrations
                             Id = 57,
                             IsAvailable = true,
                             Number = 57,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -730,6 +792,7 @@ namespace CinemaApp.Migrations
                             Id = 58,
                             IsAvailable = true,
                             Number = 58,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -737,6 +800,7 @@ namespace CinemaApp.Migrations
                             Id = 59,
                             IsAvailable = true,
                             Number = 59,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -744,6 +808,7 @@ namespace CinemaApp.Migrations
                             Id = 60,
                             IsAvailable = true,
                             Number = 60,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -751,6 +816,7 @@ namespace CinemaApp.Migrations
                             Id = 61,
                             IsAvailable = true,
                             Number = 61,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -758,6 +824,7 @@ namespace CinemaApp.Migrations
                             Id = 62,
                             IsAvailable = true,
                             Number = 62,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -765,6 +832,7 @@ namespace CinemaApp.Migrations
                             Id = 63,
                             IsAvailable = true,
                             Number = 63,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -772,6 +840,7 @@ namespace CinemaApp.Migrations
                             Id = 64,
                             IsAvailable = true,
                             Number = 64,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -779,6 +848,7 @@ namespace CinemaApp.Migrations
                             Id = 65,
                             IsAvailable = true,
                             Number = 65,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -786,6 +856,7 @@ namespace CinemaApp.Migrations
                             Id = 66,
                             IsAvailable = true,
                             Number = 66,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -793,6 +864,7 @@ namespace CinemaApp.Migrations
                             Id = 67,
                             IsAvailable = true,
                             Number = 67,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -800,6 +872,7 @@ namespace CinemaApp.Migrations
                             Id = 68,
                             IsAvailable = true,
                             Number = 68,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -807,6 +880,7 @@ namespace CinemaApp.Migrations
                             Id = 69,
                             IsAvailable = true,
                             Number = 69,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -814,6 +888,7 @@ namespace CinemaApp.Migrations
                             Id = 70,
                             IsAvailable = true,
                             Number = 70,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -821,6 +896,7 @@ namespace CinemaApp.Migrations
                             Id = 71,
                             IsAvailable = true,
                             Number = 71,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -828,6 +904,7 @@ namespace CinemaApp.Migrations
                             Id = 72,
                             IsAvailable = true,
                             Number = 72,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -835,6 +912,7 @@ namespace CinemaApp.Migrations
                             Id = 73,
                             IsAvailable = true,
                             Number = 73,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -842,6 +920,7 @@ namespace CinemaApp.Migrations
                             Id = 74,
                             IsAvailable = true,
                             Number = 74,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -849,6 +928,7 @@ namespace CinemaApp.Migrations
                             Id = 75,
                             IsAvailable = true,
                             Number = 75,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -856,6 +936,7 @@ namespace CinemaApp.Migrations
                             Id = 76,
                             IsAvailable = true,
                             Number = 76,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -863,6 +944,7 @@ namespace CinemaApp.Migrations
                             Id = 77,
                             IsAvailable = true,
                             Number = 77,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -870,6 +952,7 @@ namespace CinemaApp.Migrations
                             Id = 78,
                             IsAvailable = true,
                             Number = 78,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -877,6 +960,7 @@ namespace CinemaApp.Migrations
                             Id = 79,
                             IsAvailable = true,
                             Number = 79,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -884,6 +968,7 @@ namespace CinemaApp.Migrations
                             Id = 80,
                             IsAvailable = true,
                             Number = 80,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -891,6 +976,7 @@ namespace CinemaApp.Migrations
                             Id = 81,
                             IsAvailable = true,
                             Number = 81,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -898,6 +984,7 @@ namespace CinemaApp.Migrations
                             Id = 82,
                             IsAvailable = true,
                             Number = 82,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -905,6 +992,7 @@ namespace CinemaApp.Migrations
                             Id = 83,
                             IsAvailable = true,
                             Number = 83,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -912,6 +1000,7 @@ namespace CinemaApp.Migrations
                             Id = 84,
                             IsAvailable = true,
                             Number = 84,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -919,6 +1008,7 @@ namespace CinemaApp.Migrations
                             Id = 85,
                             IsAvailable = true,
                             Number = 85,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -926,6 +1016,7 @@ namespace CinemaApp.Migrations
                             Id = 86,
                             IsAvailable = true,
                             Number = 86,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -933,6 +1024,7 @@ namespace CinemaApp.Migrations
                             Id = 87,
                             IsAvailable = true,
                             Number = 87,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -940,6 +1032,7 @@ namespace CinemaApp.Migrations
                             Id = 88,
                             IsAvailable = true,
                             Number = 88,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -947,6 +1040,7 @@ namespace CinemaApp.Migrations
                             Id = 89,
                             IsAvailable = true,
                             Number = 89,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -954,6 +1048,7 @@ namespace CinemaApp.Migrations
                             Id = 90,
                             IsAvailable = true,
                             Number = 90,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -961,6 +1056,7 @@ namespace CinemaApp.Migrations
                             Id = 91,
                             IsAvailable = true,
                             Number = 91,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -968,6 +1064,7 @@ namespace CinemaApp.Migrations
                             Id = 92,
                             IsAvailable = true,
                             Number = 92,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -975,6 +1072,7 @@ namespace CinemaApp.Migrations
                             Id = 93,
                             IsAvailable = true,
                             Number = 93,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -982,6 +1080,7 @@ namespace CinemaApp.Migrations
                             Id = 94,
                             IsAvailable = true,
                             Number = 94,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -989,6 +1088,7 @@ namespace CinemaApp.Migrations
                             Id = 95,
                             IsAvailable = true,
                             Number = 95,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -996,6 +1096,7 @@ namespace CinemaApp.Migrations
                             Id = 96,
                             IsAvailable = true,
                             Number = 96,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -1003,6 +1104,7 @@ namespace CinemaApp.Migrations
                             Id = 97,
                             IsAvailable = true,
                             Number = 97,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -1010,6 +1112,7 @@ namespace CinemaApp.Migrations
                             Id = 98,
                             IsAvailable = true,
                             Number = 98,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -1017,6 +1120,7 @@ namespace CinemaApp.Migrations
                             Id = 99,
                             IsAvailable = true,
                             Number = 99,
+                            ProjectionId = 1,
                             TheaterId = 1
                         },
                         new
@@ -1024,2457 +1128,1208 @@ namespace CinemaApp.Migrations
                             Id = 100,
                             IsAvailable = true,
                             Number = 100,
+                            ProjectionId = 1,
                             TheaterId = 1
+                        },
+                        new
+                        {
+                            Id = 101,
+                            IsAvailable = true,
+                            Number = 1,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 102,
+                            IsAvailable = true,
+                            Number = 2,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 103,
+                            IsAvailable = true,
+                            Number = 3,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 104,
+                            IsAvailable = true,
+                            Number = 4,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 105,
+                            IsAvailable = true,
+                            Number = 5,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 106,
+                            IsAvailable = true,
+                            Number = 6,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 107,
+                            IsAvailable = true,
+                            Number = 7,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 108,
+                            IsAvailable = true,
+                            Number = 8,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 109,
+                            IsAvailable = true,
+                            Number = 9,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 110,
+                            IsAvailable = true,
+                            Number = 10,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 111,
+                            IsAvailable = true,
+                            Number = 11,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 112,
+                            IsAvailable = true,
+                            Number = 12,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 113,
+                            IsAvailable = true,
+                            Number = 13,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 114,
+                            IsAvailable = true,
+                            Number = 14,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 115,
+                            IsAvailable = true,
+                            Number = 15,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 116,
+                            IsAvailable = true,
+                            Number = 16,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 117,
+                            IsAvailable = true,
+                            Number = 17,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 118,
+                            IsAvailable = true,
+                            Number = 18,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 119,
+                            IsAvailable = true,
+                            Number = 19,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 120,
+                            IsAvailable = true,
+                            Number = 20,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 121,
+                            IsAvailable = true,
+                            Number = 21,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 122,
+                            IsAvailable = true,
+                            Number = 22,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 123,
+                            IsAvailable = true,
+                            Number = 23,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 124,
+                            IsAvailable = true,
+                            Number = 24,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 125,
+                            IsAvailable = true,
+                            Number = 25,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 126,
+                            IsAvailable = true,
+                            Number = 26,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 127,
+                            IsAvailable = true,
+                            Number = 27,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 128,
+                            IsAvailable = true,
+                            Number = 28,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 129,
+                            IsAvailable = true,
+                            Number = 29,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 130,
+                            IsAvailable = true,
+                            Number = 30,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 131,
+                            IsAvailable = true,
+                            Number = 31,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 132,
+                            IsAvailable = true,
+                            Number = 32,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 133,
+                            IsAvailable = true,
+                            Number = 33,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 134,
+                            IsAvailable = true,
+                            Number = 34,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 135,
+                            IsAvailable = true,
+                            Number = 35,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 136,
+                            IsAvailable = true,
+                            Number = 36,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 137,
+                            IsAvailable = true,
+                            Number = 37,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 138,
+                            IsAvailable = true,
+                            Number = 38,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 139,
+                            IsAvailable = true,
+                            Number = 39,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 140,
+                            IsAvailable = true,
+                            Number = 40,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 141,
+                            IsAvailable = true,
+                            Number = 41,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 142,
+                            IsAvailable = true,
+                            Number = 42,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 143,
+                            IsAvailable = true,
+                            Number = 43,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 144,
+                            IsAvailable = true,
+                            Number = 44,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 145,
+                            IsAvailable = true,
+                            Number = 45,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 146,
+                            IsAvailable = true,
+                            Number = 46,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 147,
+                            IsAvailable = true,
+                            Number = 47,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 148,
+                            IsAvailable = true,
+                            Number = 48,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 149,
+                            IsAvailable = true,
+                            Number = 49,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 150,
+                            IsAvailable = true,
+                            Number = 50,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 151,
+                            IsAvailable = true,
+                            Number = 51,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 152,
+                            IsAvailable = true,
+                            Number = 52,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 153,
+                            IsAvailable = true,
+                            Number = 53,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 154,
+                            IsAvailable = true,
+                            Number = 54,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 155,
+                            IsAvailable = true,
+                            Number = 55,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 156,
+                            IsAvailable = true,
+                            Number = 56,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 157,
+                            IsAvailable = true,
+                            Number = 57,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 158,
+                            IsAvailable = true,
+                            Number = 58,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 159,
+                            IsAvailable = true,
+                            Number = 59,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 160,
+                            IsAvailable = true,
+                            Number = 60,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 161,
+                            IsAvailable = true,
+                            Number = 61,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 162,
+                            IsAvailable = true,
+                            Number = 62,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 163,
+                            IsAvailable = true,
+                            Number = 63,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 164,
+                            IsAvailable = true,
+                            Number = 64,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 165,
+                            IsAvailable = true,
+                            Number = 65,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 166,
+                            IsAvailable = true,
+                            Number = 66,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 167,
+                            IsAvailable = true,
+                            Number = 67,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 168,
+                            IsAvailable = true,
+                            Number = 68,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 169,
+                            IsAvailable = true,
+                            Number = 69,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 170,
+                            IsAvailable = true,
+                            Number = 70,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 171,
+                            IsAvailable = true,
+                            Number = 71,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 172,
+                            IsAvailable = true,
+                            Number = 72,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 173,
+                            IsAvailable = true,
+                            Number = 73,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 174,
+                            IsAvailable = true,
+                            Number = 74,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 175,
+                            IsAvailable = true,
+                            Number = 75,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 176,
+                            IsAvailable = true,
+                            Number = 76,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 177,
+                            IsAvailable = true,
+                            Number = 77,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 178,
+                            IsAvailable = true,
+                            Number = 78,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 179,
+                            IsAvailable = true,
+                            Number = 79,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 180,
+                            IsAvailable = true,
+                            Number = 80,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 181,
+                            IsAvailable = true,
+                            Number = 81,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 182,
+                            IsAvailable = true,
+                            Number = 82,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 183,
+                            IsAvailable = true,
+                            Number = 83,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 184,
+                            IsAvailable = true,
+                            Number = 84,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 185,
+                            IsAvailable = true,
+                            Number = 85,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 186,
+                            IsAvailable = true,
+                            Number = 86,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 187,
+                            IsAvailable = true,
+                            Number = 87,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 188,
+                            IsAvailable = true,
+                            Number = 88,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 189,
+                            IsAvailable = true,
+                            Number = 89,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 190,
+                            IsAvailable = true,
+                            Number = 90,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 191,
+                            IsAvailable = true,
+                            Number = 91,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 192,
+                            IsAvailable = true,
+                            Number = 92,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 193,
+                            IsAvailable = true,
+                            Number = 93,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 194,
+                            IsAvailable = true,
+                            Number = 94,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 195,
+                            IsAvailable = true,
+                            Number = 95,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 196,
+                            IsAvailable = true,
+                            Number = 96,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 197,
+                            IsAvailable = true,
+                            Number = 97,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 198,
+                            IsAvailable = true,
+                            Number = 98,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 199,
+                            IsAvailable = true,
+                            Number = 99,
+                            ProjectionId = 2,
+                            TheaterId = 2
+                        },
+                        new
+                        {
+                            Id = 200,
+                            IsAvailable = true,
+                            Number = 100,
+                            ProjectionId = 2,
+                            TheaterId = 2
                         },
                         new
                         {
                             Id = 201,
                             IsAvailable = true,
-                            Number = 1,
+                            Number = 101,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 202,
                             IsAvailable = true,
-                            Number = 2,
+                            Number = 102,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 203,
                             IsAvailable = true,
-                            Number = 3,
+                            Number = 103,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 204,
                             IsAvailable = true,
-                            Number = 4,
+                            Number = 104,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 205,
                             IsAvailable = true,
-                            Number = 5,
+                            Number = 105,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 206,
                             IsAvailable = true,
-                            Number = 6,
+                            Number = 106,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 207,
                             IsAvailable = true,
-                            Number = 7,
+                            Number = 107,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 208,
                             IsAvailable = true,
-                            Number = 8,
+                            Number = 108,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 209,
                             IsAvailable = true,
-                            Number = 9,
+                            Number = 109,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 210,
                             IsAvailable = true,
-                            Number = 10,
+                            Number = 110,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 211,
                             IsAvailable = true,
-                            Number = 11,
+                            Number = 111,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 212,
                             IsAvailable = true,
-                            Number = 12,
+                            Number = 112,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 213,
                             IsAvailable = true,
-                            Number = 13,
+                            Number = 113,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 214,
                             IsAvailable = true,
-                            Number = 14,
+                            Number = 114,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 215,
                             IsAvailable = true,
-                            Number = 15,
+                            Number = 115,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 216,
                             IsAvailable = true,
-                            Number = 16,
+                            Number = 116,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 217,
                             IsAvailable = true,
-                            Number = 17,
+                            Number = 117,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 218,
                             IsAvailable = true,
-                            Number = 18,
+                            Number = 118,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 219,
                             IsAvailable = true,
-                            Number = 19,
+                            Number = 119,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 220,
                             IsAvailable = true,
-                            Number = 20,
+                            Number = 120,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 221,
                             IsAvailable = true,
-                            Number = 21,
+                            Number = 121,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 222,
                             IsAvailable = true,
-                            Number = 22,
+                            Number = 122,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 223,
                             IsAvailable = true,
-                            Number = 23,
+                            Number = 123,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 224,
                             IsAvailable = true,
-                            Number = 24,
+                            Number = 124,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 225,
                             IsAvailable = true,
-                            Number = 25,
+                            Number = 125,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 226,
                             IsAvailable = true,
-                            Number = 26,
+                            Number = 126,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 227,
                             IsAvailable = true,
-                            Number = 27,
+                            Number = 127,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 228,
                             IsAvailable = true,
-                            Number = 28,
+                            Number = 128,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 229,
                             IsAvailable = true,
-                            Number = 29,
+                            Number = 129,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 230,
                             IsAvailable = true,
-                            Number = 30,
+                            Number = 130,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 231,
                             IsAvailable = true,
-                            Number = 31,
+                            Number = 131,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 232,
                             IsAvailable = true,
-                            Number = 32,
+                            Number = 132,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 233,
                             IsAvailable = true,
-                            Number = 33,
+                            Number = 133,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 234,
                             IsAvailable = true,
-                            Number = 34,
+                            Number = 134,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 235,
                             IsAvailable = true,
-                            Number = 35,
+                            Number = 135,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 236,
                             IsAvailable = true,
-                            Number = 36,
+                            Number = 136,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 237,
                             IsAvailable = true,
-                            Number = 37,
+                            Number = 137,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 238,
                             IsAvailable = true,
-                            Number = 38,
+                            Number = 138,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 239,
                             IsAvailable = true,
-                            Number = 39,
+                            Number = 139,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 240,
                             IsAvailable = true,
-                            Number = 40,
+                            Number = 140,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 241,
                             IsAvailable = true,
-                            Number = 41,
+                            Number = 141,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 242,
                             IsAvailable = true,
-                            Number = 42,
+                            Number = 142,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 243,
                             IsAvailable = true,
-                            Number = 43,
+                            Number = 143,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 244,
                             IsAvailable = true,
-                            Number = 44,
+                            Number = 144,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 245,
                             IsAvailable = true,
-                            Number = 45,
+                            Number = 145,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 246,
                             IsAvailable = true,
-                            Number = 46,
+                            Number = 146,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 247,
                             IsAvailable = true,
-                            Number = 47,
+                            Number = 147,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 248,
                             IsAvailable = true,
-                            Number = 48,
+                            Number = 148,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 249,
                             IsAvailable = true,
-                            Number = 49,
+                            Number = 149,
+                            ProjectionId = 2,
                             TheaterId = 2
                         },
                         new
                         {
                             Id = 250,
                             IsAvailable = true,
-                            Number = 50,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 251,
-                            IsAvailable = true,
-                            Number = 51,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 252,
-                            IsAvailable = true,
-                            Number = 52,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 253,
-                            IsAvailable = true,
-                            Number = 53,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 254,
-                            IsAvailable = true,
-                            Number = 54,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 255,
-                            IsAvailable = true,
-                            Number = 55,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 256,
-                            IsAvailable = true,
-                            Number = 56,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 257,
-                            IsAvailable = true,
-                            Number = 57,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 258,
-                            IsAvailable = true,
-                            Number = 58,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 259,
-                            IsAvailable = true,
-                            Number = 59,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 260,
-                            IsAvailable = true,
-                            Number = 60,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 261,
-                            IsAvailable = true,
-                            Number = 61,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 262,
-                            IsAvailable = true,
-                            Number = 62,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 263,
-                            IsAvailable = true,
-                            Number = 63,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 264,
-                            IsAvailable = true,
-                            Number = 64,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 265,
-                            IsAvailable = true,
-                            Number = 65,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 266,
-                            IsAvailable = true,
-                            Number = 66,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 267,
-                            IsAvailable = true,
-                            Number = 67,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 268,
-                            IsAvailable = true,
-                            Number = 68,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 269,
-                            IsAvailable = true,
-                            Number = 69,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 270,
-                            IsAvailable = true,
-                            Number = 70,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 271,
-                            IsAvailable = true,
-                            Number = 71,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 272,
-                            IsAvailable = true,
-                            Number = 72,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 273,
-                            IsAvailable = true,
-                            Number = 73,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 274,
-                            IsAvailable = true,
-                            Number = 74,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 275,
-                            IsAvailable = true,
-                            Number = 75,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 276,
-                            IsAvailable = true,
-                            Number = 76,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 277,
-                            IsAvailable = true,
-                            Number = 77,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 278,
-                            IsAvailable = true,
-                            Number = 78,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 279,
-                            IsAvailable = true,
-                            Number = 79,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 280,
-                            IsAvailable = true,
-                            Number = 80,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 281,
-                            IsAvailable = true,
-                            Number = 81,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 282,
-                            IsAvailable = true,
-                            Number = 82,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 283,
-                            IsAvailable = true,
-                            Number = 83,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 284,
-                            IsAvailable = true,
-                            Number = 84,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 285,
-                            IsAvailable = true,
-                            Number = 85,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 286,
-                            IsAvailable = true,
-                            Number = 86,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 287,
-                            IsAvailable = true,
-                            Number = 87,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 288,
-                            IsAvailable = true,
-                            Number = 88,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 289,
-                            IsAvailable = true,
-                            Number = 89,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 290,
-                            IsAvailable = true,
-                            Number = 90,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 291,
-                            IsAvailable = true,
-                            Number = 91,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 292,
-                            IsAvailable = true,
-                            Number = 92,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 293,
-                            IsAvailable = true,
-                            Number = 93,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 294,
-                            IsAvailable = true,
-                            Number = 94,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 295,
-                            IsAvailable = true,
-                            Number = 95,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 296,
-                            IsAvailable = true,
-                            Number = 96,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 297,
-                            IsAvailable = true,
-                            Number = 97,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 298,
-                            IsAvailable = true,
-                            Number = 98,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 299,
-                            IsAvailable = true,
-                            Number = 99,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 300,
-                            IsAvailable = true,
-                            Number = 100,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 301,
-                            IsAvailable = true,
-                            Number = 101,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 302,
-                            IsAvailable = true,
-                            Number = 102,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 303,
-                            IsAvailable = true,
-                            Number = 103,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 304,
-                            IsAvailable = true,
-                            Number = 104,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 305,
-                            IsAvailable = true,
-                            Number = 105,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 306,
-                            IsAvailable = true,
-                            Number = 106,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 307,
-                            IsAvailable = true,
-                            Number = 107,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 308,
-                            IsAvailable = true,
-                            Number = 108,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 309,
-                            IsAvailable = true,
-                            Number = 109,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 310,
-                            IsAvailable = true,
-                            Number = 110,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 311,
-                            IsAvailable = true,
-                            Number = 111,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 312,
-                            IsAvailable = true,
-                            Number = 112,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 313,
-                            IsAvailable = true,
-                            Number = 113,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 314,
-                            IsAvailable = true,
-                            Number = 114,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 315,
-                            IsAvailable = true,
-                            Number = 115,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 316,
-                            IsAvailable = true,
-                            Number = 116,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 317,
-                            IsAvailable = true,
-                            Number = 117,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 318,
-                            IsAvailable = true,
-                            Number = 118,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 319,
-                            IsAvailable = true,
-                            Number = 119,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 320,
-                            IsAvailable = true,
-                            Number = 120,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 321,
-                            IsAvailable = true,
-                            Number = 121,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 322,
-                            IsAvailable = true,
-                            Number = 122,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 323,
-                            IsAvailable = true,
-                            Number = 123,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 324,
-                            IsAvailable = true,
-                            Number = 124,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 325,
-                            IsAvailable = true,
-                            Number = 125,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 326,
-                            IsAvailable = true,
-                            Number = 126,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 327,
-                            IsAvailable = true,
-                            Number = 127,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 328,
-                            IsAvailable = true,
-                            Number = 128,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 329,
-                            IsAvailable = true,
-                            Number = 129,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 330,
-                            IsAvailable = true,
-                            Number = 130,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 331,
-                            IsAvailable = true,
-                            Number = 131,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 332,
-                            IsAvailable = true,
-                            Number = 132,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 333,
-                            IsAvailable = true,
-                            Number = 133,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 334,
-                            IsAvailable = true,
-                            Number = 134,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 335,
-                            IsAvailable = true,
-                            Number = 135,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 336,
-                            IsAvailable = true,
-                            Number = 136,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 337,
-                            IsAvailable = true,
-                            Number = 137,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 338,
-                            IsAvailable = true,
-                            Number = 138,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 339,
-                            IsAvailable = true,
-                            Number = 139,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 340,
-                            IsAvailable = true,
-                            Number = 140,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 341,
-                            IsAvailable = true,
-                            Number = 141,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 342,
-                            IsAvailable = true,
-                            Number = 142,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 343,
-                            IsAvailable = true,
-                            Number = 143,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 344,
-                            IsAvailable = true,
-                            Number = 144,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 345,
-                            IsAvailable = true,
-                            Number = 145,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 346,
-                            IsAvailable = true,
-                            Number = 146,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 347,
-                            IsAvailable = true,
-                            Number = 147,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 348,
-                            IsAvailable = true,
-                            Number = 148,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 349,
-                            IsAvailable = true,
-                            Number = 149,
-                            TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 350,
-                            IsAvailable = true,
                             Number = 150,
+                            ProjectionId = 2,
                             TheaterId = 2
-                        },
-                        new
-                        {
-                            Id = 401,
-                            IsAvailable = true,
-                            Number = 1,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 402,
-                            IsAvailable = true,
-                            Number = 2,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 403,
-                            IsAvailable = true,
-                            Number = 3,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 404,
-                            IsAvailable = true,
-                            Number = 4,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 405,
-                            IsAvailable = true,
-                            Number = 5,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 406,
-                            IsAvailable = true,
-                            Number = 6,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 407,
-                            IsAvailable = true,
-                            Number = 7,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 408,
-                            IsAvailable = true,
-                            Number = 8,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 409,
-                            IsAvailable = true,
-                            Number = 9,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 410,
-                            IsAvailable = true,
-                            Number = 10,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 411,
-                            IsAvailable = true,
-                            Number = 11,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 412,
-                            IsAvailable = true,
-                            Number = 12,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 413,
-                            IsAvailable = true,
-                            Number = 13,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 414,
-                            IsAvailable = true,
-                            Number = 14,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 415,
-                            IsAvailable = true,
-                            Number = 15,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 416,
-                            IsAvailable = true,
-                            Number = 16,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 417,
-                            IsAvailable = true,
-                            Number = 17,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 418,
-                            IsAvailable = true,
-                            Number = 18,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 419,
-                            IsAvailable = true,
-                            Number = 19,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 420,
-                            IsAvailable = true,
-                            Number = 20,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 421,
-                            IsAvailable = true,
-                            Number = 21,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 422,
-                            IsAvailable = true,
-                            Number = 22,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 423,
-                            IsAvailable = true,
-                            Number = 23,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 424,
-                            IsAvailable = true,
-                            Number = 24,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 425,
-                            IsAvailable = true,
-                            Number = 25,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 426,
-                            IsAvailable = true,
-                            Number = 26,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 427,
-                            IsAvailable = true,
-                            Number = 27,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 428,
-                            IsAvailable = true,
-                            Number = 28,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 429,
-                            IsAvailable = true,
-                            Number = 29,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 430,
-                            IsAvailable = true,
-                            Number = 30,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 431,
-                            IsAvailable = true,
-                            Number = 31,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 432,
-                            IsAvailable = true,
-                            Number = 32,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 433,
-                            IsAvailable = true,
-                            Number = 33,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 434,
-                            IsAvailable = true,
-                            Number = 34,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 435,
-                            IsAvailable = true,
-                            Number = 35,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 436,
-                            IsAvailable = true,
-                            Number = 36,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 437,
-                            IsAvailable = true,
-                            Number = 37,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 438,
-                            IsAvailable = true,
-                            Number = 38,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 439,
-                            IsAvailable = true,
-                            Number = 39,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 440,
-                            IsAvailable = true,
-                            Number = 40,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 441,
-                            IsAvailable = true,
-                            Number = 41,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 442,
-                            IsAvailable = true,
-                            Number = 42,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 443,
-                            IsAvailable = true,
-                            Number = 43,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 444,
-                            IsAvailable = true,
-                            Number = 44,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 445,
-                            IsAvailable = true,
-                            Number = 45,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 446,
-                            IsAvailable = true,
-                            Number = 46,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 447,
-                            IsAvailable = true,
-                            Number = 47,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 448,
-                            IsAvailable = true,
-                            Number = 48,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 449,
-                            IsAvailable = true,
-                            Number = 49,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 450,
-                            IsAvailable = true,
-                            Number = 50,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 451,
-                            IsAvailable = true,
-                            Number = 51,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 452,
-                            IsAvailable = true,
-                            Number = 52,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 453,
-                            IsAvailable = true,
-                            Number = 53,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 454,
-                            IsAvailable = true,
-                            Number = 54,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 455,
-                            IsAvailable = true,
-                            Number = 55,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 456,
-                            IsAvailable = true,
-                            Number = 56,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 457,
-                            IsAvailable = true,
-                            Number = 57,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 458,
-                            IsAvailable = true,
-                            Number = 58,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 459,
-                            IsAvailable = true,
-                            Number = 59,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 460,
-                            IsAvailable = true,
-                            Number = 60,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 461,
-                            IsAvailable = true,
-                            Number = 61,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 462,
-                            IsAvailable = true,
-                            Number = 62,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 463,
-                            IsAvailable = true,
-                            Number = 63,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 464,
-                            IsAvailable = true,
-                            Number = 64,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 465,
-                            IsAvailable = true,
-                            Number = 65,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 466,
-                            IsAvailable = true,
-                            Number = 66,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 467,
-                            IsAvailable = true,
-                            Number = 67,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 468,
-                            IsAvailable = true,
-                            Number = 68,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 469,
-                            IsAvailable = true,
-                            Number = 69,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 470,
-                            IsAvailable = true,
-                            Number = 70,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 471,
-                            IsAvailable = true,
-                            Number = 71,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 472,
-                            IsAvailable = true,
-                            Number = 72,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 473,
-                            IsAvailable = true,
-                            Number = 73,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 474,
-                            IsAvailable = true,
-                            Number = 74,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 475,
-                            IsAvailable = true,
-                            Number = 75,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 476,
-                            IsAvailable = true,
-                            Number = 76,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 477,
-                            IsAvailable = true,
-                            Number = 77,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 478,
-                            IsAvailable = true,
-                            Number = 78,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 479,
-                            IsAvailable = true,
-                            Number = 79,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 480,
-                            IsAvailable = true,
-                            Number = 80,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 481,
-                            IsAvailable = true,
-                            Number = 81,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 482,
-                            IsAvailable = true,
-                            Number = 82,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 483,
-                            IsAvailable = true,
-                            Number = 83,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 484,
-                            IsAvailable = true,
-                            Number = 84,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 485,
-                            IsAvailable = true,
-                            Number = 85,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 486,
-                            IsAvailable = true,
-                            Number = 86,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 487,
-                            IsAvailable = true,
-                            Number = 87,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 488,
-                            IsAvailable = true,
-                            Number = 88,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 489,
-                            IsAvailable = true,
-                            Number = 89,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 490,
-                            IsAvailable = true,
-                            Number = 90,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 491,
-                            IsAvailable = true,
-                            Number = 91,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 492,
-                            IsAvailable = true,
-                            Number = 92,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 493,
-                            IsAvailable = true,
-                            Number = 93,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 494,
-                            IsAvailable = true,
-                            Number = 94,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 495,
-                            IsAvailable = true,
-                            Number = 95,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 496,
-                            IsAvailable = true,
-                            Number = 96,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 497,
-                            IsAvailable = true,
-                            Number = 97,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 498,
-                            IsAvailable = true,
-                            Number = 98,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 499,
-                            IsAvailable = true,
-                            Number = 99,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 500,
-                            IsAvailable = true,
-                            Number = 100,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 501,
-                            IsAvailable = true,
-                            Number = 101,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 502,
-                            IsAvailable = true,
-                            Number = 102,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 503,
-                            IsAvailable = true,
-                            Number = 103,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 504,
-                            IsAvailable = true,
-                            Number = 104,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 505,
-                            IsAvailable = true,
-                            Number = 105,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 506,
-                            IsAvailable = true,
-                            Number = 106,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 507,
-                            IsAvailable = true,
-                            Number = 107,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 508,
-                            IsAvailable = true,
-                            Number = 108,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 509,
-                            IsAvailable = true,
-                            Number = 109,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 510,
-                            IsAvailable = true,
-                            Number = 110,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 511,
-                            IsAvailable = true,
-                            Number = 111,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 512,
-                            IsAvailable = true,
-                            Number = 112,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 513,
-                            IsAvailable = true,
-                            Number = 113,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 514,
-                            IsAvailable = true,
-                            Number = 114,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 515,
-                            IsAvailable = true,
-                            Number = 115,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 516,
-                            IsAvailable = true,
-                            Number = 116,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 517,
-                            IsAvailable = true,
-                            Number = 117,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 518,
-                            IsAvailable = true,
-                            Number = 118,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 519,
-                            IsAvailable = true,
-                            Number = 119,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 520,
-                            IsAvailable = true,
-                            Number = 120,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 521,
-                            IsAvailable = true,
-                            Number = 121,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 522,
-                            IsAvailable = true,
-                            Number = 122,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 523,
-                            IsAvailable = true,
-                            Number = 123,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 524,
-                            IsAvailable = true,
-                            Number = 124,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 525,
-                            IsAvailable = true,
-                            Number = 125,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 526,
-                            IsAvailable = true,
-                            Number = 126,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 527,
-                            IsAvailable = true,
-                            Number = 127,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 528,
-                            IsAvailable = true,
-                            Number = 128,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 529,
-                            IsAvailable = true,
-                            Number = 129,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 530,
-                            IsAvailable = true,
-                            Number = 130,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 531,
-                            IsAvailable = true,
-                            Number = 131,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 532,
-                            IsAvailable = true,
-                            Number = 132,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 533,
-                            IsAvailable = true,
-                            Number = 133,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 534,
-                            IsAvailable = true,
-                            Number = 134,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 535,
-                            IsAvailable = true,
-                            Number = 135,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 536,
-                            IsAvailable = true,
-                            Number = 136,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 537,
-                            IsAvailable = true,
-                            Number = 137,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 538,
-                            IsAvailable = true,
-                            Number = 138,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 539,
-                            IsAvailable = true,
-                            Number = 139,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 540,
-                            IsAvailable = true,
-                            Number = 140,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 541,
-                            IsAvailable = true,
-                            Number = 141,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 542,
-                            IsAvailable = true,
-                            Number = 142,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 543,
-                            IsAvailable = true,
-                            Number = 143,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 544,
-                            IsAvailable = true,
-                            Number = 144,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 545,
-                            IsAvailable = true,
-                            Number = 145,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 546,
-                            IsAvailable = true,
-                            Number = 146,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 547,
-                            IsAvailable = true,
-                            Number = 147,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 548,
-                            IsAvailable = true,
-                            Number = 148,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 549,
-                            IsAvailable = true,
-                            Number = 149,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 550,
-                            IsAvailable = true,
-                            Number = 150,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 551,
-                            IsAvailable = true,
-                            Number = 151,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 552,
-                            IsAvailable = true,
-                            Number = 152,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 553,
-                            IsAvailable = true,
-                            Number = 153,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 554,
-                            IsAvailable = true,
-                            Number = 154,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 555,
-                            IsAvailable = true,
-                            Number = 155,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 556,
-                            IsAvailable = true,
-                            Number = 156,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 557,
-                            IsAvailable = true,
-                            Number = 157,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 558,
-                            IsAvailable = true,
-                            Number = 158,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 559,
-                            IsAvailable = true,
-                            Number = 159,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 560,
-                            IsAvailable = true,
-                            Number = 160,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 561,
-                            IsAvailable = true,
-                            Number = 161,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 562,
-                            IsAvailable = true,
-                            Number = 162,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 563,
-                            IsAvailable = true,
-                            Number = 163,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 564,
-                            IsAvailable = true,
-                            Number = 164,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 565,
-                            IsAvailable = true,
-                            Number = 165,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 566,
-                            IsAvailable = true,
-                            Number = 166,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 567,
-                            IsAvailable = true,
-                            Number = 167,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 568,
-                            IsAvailable = true,
-                            Number = 168,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 569,
-                            IsAvailable = true,
-                            Number = 169,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 570,
-                            IsAvailable = true,
-                            Number = 170,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 571,
-                            IsAvailable = true,
-                            Number = 171,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 572,
-                            IsAvailable = true,
-                            Number = 172,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 573,
-                            IsAvailable = true,
-                            Number = 173,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 574,
-                            IsAvailable = true,
-                            Number = 174,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 575,
-                            IsAvailable = true,
-                            Number = 175,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 576,
-                            IsAvailable = true,
-                            Number = 176,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 577,
-                            IsAvailable = true,
-                            Number = 177,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 578,
-                            IsAvailable = true,
-                            Number = 178,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 579,
-                            IsAvailable = true,
-                            Number = 179,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 580,
-                            IsAvailable = true,
-                            Number = 180,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 581,
-                            IsAvailable = true,
-                            Number = 181,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 582,
-                            IsAvailable = true,
-                            Number = 182,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 583,
-                            IsAvailable = true,
-                            Number = 183,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 584,
-                            IsAvailable = true,
-                            Number = 184,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 585,
-                            IsAvailable = true,
-                            Number = 185,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 586,
-                            IsAvailable = true,
-                            Number = 186,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 587,
-                            IsAvailable = true,
-                            Number = 187,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 588,
-                            IsAvailable = true,
-                            Number = 188,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 589,
-                            IsAvailable = true,
-                            Number = 189,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 590,
-                            IsAvailable = true,
-                            Number = 190,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 591,
-                            IsAvailable = true,
-                            Number = 191,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 592,
-                            IsAvailable = true,
-                            Number = 192,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 593,
-                            IsAvailable = true,
-                            Number = 193,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 594,
-                            IsAvailable = true,
-                            Number = 194,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 595,
-                            IsAvailable = true,
-                            Number = 195,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 596,
-                            IsAvailable = true,
-                            Number = 196,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 597,
-                            IsAvailable = true,
-                            Number = 197,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 598,
-                            IsAvailable = true,
-                            Number = 198,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 599,
-                            IsAvailable = true,
-                            Number = 199,
-                            TheaterId = 3
-                        },
-                        new
-                        {
-                            Id = 600,
-                            IsAvailable = true,
-                            Number = 200,
-                            TheaterId = 3
                         });
                 });
 
@@ -3553,7 +2408,7 @@ namespace CinemaApp.Migrations
                         {
                             Id = 1,
                             ProjectionId = 1,
-                            SaleDateTime = new DateTime(2024, 7, 16, 16, 5, 24, 733, DateTimeKind.Local).AddTicks(7805),
+                            SaleDateTime = new DateTime(2024, 7, 23, 17, 35, 31, 804, DateTimeKind.Local).AddTicks(7507),
                             SeatId = 1,
                             UserId = "1"
                         },
@@ -3561,7 +2416,7 @@ namespace CinemaApp.Migrations
                         {
                             Id = 2,
                             ProjectionId = 2,
-                            SaleDateTime = new DateTime(2024, 7, 16, 16, 5, 24, 733, DateTimeKind.Local).AddTicks(7827),
+                            SaleDateTime = new DateTime(2024, 7, 23, 17, 35, 31, 804, DateTimeKind.Local).AddTicks(7539),
                             SeatId = 2,
                             UserId = "2"
                         });
@@ -3705,7 +2560,7 @@ namespace CinemaApp.Migrations
                     b.HasOne("CinemaApp.Models.ApplicationUser", "Administrator")
                         .WithMany()
                         .HasForeignKey("AdministratorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CinemaApp.Models.Movie", "Movie")
@@ -3744,11 +2599,19 @@ namespace CinemaApp.Migrations
 
             modelBuilder.Entity("CinemaApp.Models.Seat", b =>
                 {
+                    b.HasOne("CinemaApp.Models.Projection", "Projection")
+                        .WithMany("Seats")
+                        .HasForeignKey("ProjectionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("CinemaApp.Models.Theater", "Theater")
                         .WithMany("Seats")
                         .HasForeignKey("TheaterId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Projection");
 
                     b.Navigation("Theater");
                 });
@@ -3758,7 +2621,7 @@ namespace CinemaApp.Migrations
                     b.HasOne("CinemaApp.Models.Projection", "Projection")
                         .WithMany("Tickets")
                         .HasForeignKey("ProjectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CinemaApp.Models.Seat", "Seat")
@@ -3833,6 +2696,8 @@ namespace CinemaApp.Migrations
 
             modelBuilder.Entity("CinemaApp.Models.Projection", b =>
                 {
+                    b.Navigation("Seats");
+
                     b.Navigation("Tickets");
                 });
 

@@ -139,7 +139,7 @@ namespace CinemaApp.Controllers
             {
                 _logger.LogWarning("Invalid role update parameters.");
                 return BadRequest("Invalid role update parameters.");
-            }
+            } 
 
             var user = await _userManager.FindByNameAsync(model.Username);
             if (user == null)

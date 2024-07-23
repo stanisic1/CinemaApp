@@ -7,6 +7,8 @@ namespace CinemaApp.Models
     {
         public int Id { get; set; }
         public int Number { get; set; }
+        public int ProjectionId { get; set; }  
+        public Projection Projection { get; set; }  
         public int TheaterId { get; set; }
         public Theater Theater { get; set; }
         public bool IsAvailable { get; set; } = true;

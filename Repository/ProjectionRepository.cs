@@ -115,9 +115,9 @@ namespace CinemaApp.Repository
             {
                 return null; 
             }
-
+            
             var seats = _context.Seats
-                .Where(s => s.TheaterId == projection.TheaterId)
+                .Where(s => s.ProjectionId == projection.Id)
                 .Select(s => new SeatDTO
                 {
                     Id = s.Id,
@@ -132,6 +132,12 @@ namespace CinemaApp.Repository
         public void Add(Projection projection)
         {
             _context.Projections.Add(projection);
+            _context.SaveChanges();
+        }
+
+        public void AddSeats(IEnumerable<Seat> seats)
+        {
+            _context.Seats.AddRange(seats);
             _context.SaveChanges();
         }
 

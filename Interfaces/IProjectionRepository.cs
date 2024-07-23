@@ -18,6 +18,7 @@ namespace CinemaApp.Interfaces
         bool sortDescending = false);
         Projection GetById(int id);
         void Add(Projection projection);
+        void AddSeats(IEnumerable<Seat> seats);
         void Update(Projection projection);
         void Delete(Projection projection);
         bool HasProjections(int projectionId);
