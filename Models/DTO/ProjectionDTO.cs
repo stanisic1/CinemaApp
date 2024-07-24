@@ -14,6 +14,7 @@ namespace CinemaApp.Models.DTO
         public string Theater { get; set; }
         public DateTime DateTime { get; set; }
         public decimal Price { get; set; }
+        public bool IsDeleted { get; set; }
         public int UnsoldTicketsCount { get; set; }
 
         public static string GetEnumDisplayName<T>(T enumValue) where T : Enum

@@ -229,16 +229,33 @@ namespace CinemaApp.Controllers
                 return NotFound();
             }
 
+            bool isLogicalDelete = false;
+
             if (_projectionRepository.HasProjections(id))
             {
                 _projectionRepository.LogicalDelete(projection);
+                isLogicalDelete = true;
             }
             else
             {
+                var relatedSeats = _projectionRepository.GetSeatsByProjectionId(id);
+                if (relatedSeats.Any())
+                {
+                    foreach (var seat in relatedSeats)
+                    {
+                        _projectionRepository.Delete(seat);
+                    }
+                }
 
                 _projectionRepository.Delete(projection);
             }
-            return NoContent();
+
+            var response = new
+            {
+                IsLogicalDelete = isLogicalDelete,
+                Message = isLogicalDelete ? "Logical deletion occurred." : "Projection deleted successfully."
+            };
+            return Ok(response);
         }
 
         [HttpGet]

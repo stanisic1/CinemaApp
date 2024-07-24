@@ -141,6 +141,12 @@ namespace CinemaApp.Repository
             _context.SaveChanges();
         }
 
+        public IEnumerable<Seat> GetSeatsByProjectionId(int projectionId)
+        {
+            return _context.Seats.Where(s => s.ProjectionId == projectionId).ToList();
+        }
+
+
         public void Update(Projection projection)
         {
             _context.Entry(projection).State = EntityState.Modified;
@@ -158,6 +164,12 @@ namespace CinemaApp.Repository
         public void Delete(Projection projection)
         {
             _context.Projections.Remove(projection);
+            _context.SaveChanges();
+        }
+
+        public void Delete(Seat seat)
+        {
+            _context.Seats.Remove(seat);
             _context.SaveChanges();
         }
 
