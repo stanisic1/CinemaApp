@@ -185,6 +185,21 @@ namespace CinemaApp.Repository
             _context.SaveChanges();
         }
 
+        public void ClearProjectionsAdmin(string adminId)
+        {
+            
+            var projections = _context.Projections.Where(p => p.AdministratorId == adminId).ToList();
+
+        
+            foreach (var projection in projections)
+            {
+                projection.AdministratorId = null;
+            }
+
+            _context.Projections.UpdateRange(projections);
+            _context.SaveChanges();
+        }
+
 
     }
 }

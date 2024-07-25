@@ -53,5 +53,12 @@ namespace CinemaApp.Repository
                 .Where(t => t.UserId == userId)
                 .AsQueryable();
         }
+
+        public void DeleteTicketsByUserId(string userId)
+        {
+            var tickets = _context.Tickets.Where(t => t.UserId == userId).ToList();
+            _context.Tickets.RemoveRange(tickets);
+            _context.SaveChanges();
+        }
     }
 }

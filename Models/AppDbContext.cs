@@ -42,7 +42,7 @@ namespace CinemaApp.Models
                 .HasOne(p => p.Administrator)
                 .WithMany()
                 .HasForeignKey(p => p.AdministratorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Seat>()
                 .HasOne(s => s.Projection)

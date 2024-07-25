@@ -26,9 +26,9 @@ namespace CinemaApp.Models
         public decimal Price { get; set; }
         public bool IsDeleted { get; set; } = false;
 
-        public string AdministratorId { get; set; }
+        public string? AdministratorId { get; set; }
         
-        public ApplicationUser Administrator { get; set; }
+        public ApplicationUser? Administrator { get; set; }
         public ICollection<Seat> Seats { get; set; }
         public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
     }

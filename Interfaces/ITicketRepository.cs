@@ -7,5 +7,6 @@ namespace CinemaApp.Interfaces
         public (bool success, string error) BuyTicket(Ticket ticket);
         Ticket GetById(int id);
         IQueryable<Ticket> GetTicketsByUserId(string userId);
+        void DeleteTicketsByUserId(string userId);
     }
 }

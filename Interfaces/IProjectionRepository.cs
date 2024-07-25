@@ -1,5 +1,6 @@
 ﻿using CinemaApp.Models;
 using CinemaApp.Models.DTO;
+using System.Collections.Generic;
 
 namespace CinemaApp.Interfaces
 {
@@ -26,5 +27,7 @@ namespace CinemaApp.Interfaces
         bool HasProjections(int projectionId);
         void LogicalDelete(Projection projection);
         List<SeatDTO> GetSeats(int projectionId);
+        void ClearProjectionsAdmin(string adminId);
+       
     }
 }

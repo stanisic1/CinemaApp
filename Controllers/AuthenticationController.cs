@@ -1,5 +1,6 @@
 ﻿using CinemaApp.Models.DTO;
 using CinemaApp.Models;
+using CinemaApp.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,6 @@ using System.Globalization;
 
 namespace CinemaApp.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
@@ -21,17 +21,21 @@ namespace CinemaApp.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly ILogger<AuthenticationController> _logger;
+        private readonly ITicketRepository _ticketRepository;
+        private readonly IProjectionRepository _projectionRepository;
 
-        public AuthenticationController(ILogger<AuthenticationController> logger, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public AuthenticationController(ILogger<AuthenticationController> logger, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, ITicketRepository ticketRepository, IProjectionRepository projectionRepository)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
             _logger = logger;
+            _ticketRepository = ticketRepository;
+            _projectionRepository = projectionRepository;
         }
 
         [HttpPost]
-        [Route("login")]
+        [Route("api/authentication/login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
             if (!ModelState.IsValid)
@@ -77,7 +81,7 @@ namespace CinemaApp.Controllers
         }
 
         [HttpPost]
-        [Route("register")]
+        [Route("api/authentication/register")]
         public async Task<IActionResult> Register([FromBody] RegistrationDTO model)
         {
             if (!ModelState.IsValid)
@@ -131,7 +135,7 @@ namespace CinemaApp.Controllers
         }
 
         [HttpPost]
-        [Route("update-role")]
+        [Route("api/authentication/update-role")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateUserRole([FromBody] UpdateRoleDTO model)
         {
@@ -185,7 +189,7 @@ namespace CinemaApp.Controllers
 
 
         [HttpGet]
-        [Route("userinfo")]
+        [Route("api/authentication/userinfo")]
         [Authorize(Roles = "User")]
         public async Task<IActionResult> GetUserInfo()
         {
@@ -214,7 +218,7 @@ namespace CinemaApp.Controllers
             return Ok(userInfo);
         }
         [HttpGet]
-        [Route("userinfo/{userId}")]
+        [Route("api/authentication/userinfo/{userId}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUserInfoByAdmin(string userId)
         {
@@ -243,7 +247,7 @@ namespace CinemaApp.Controllers
         }
 
         [HttpPost]
-        [Route("change-password")]
+        [Route("api/authentication/change-password")]
         [Authorize(Roles = "User")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDTO model)
         {
@@ -269,7 +273,7 @@ namespace CinemaApp.Controllers
         }
 
         [HttpGet]
-        [Route("all-users")]
+        [Route("api/authentication/all-users")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers(string? username, string? sortBy = null, string? sortDirection = null)
         {
@@ -318,7 +322,7 @@ namespace CinemaApp.Controllers
         }
 
         [HttpDelete]
-        [Route("delete-user/{userId}")]
+        [Route("api/authentication/delete-user/{userId}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(string userId)
         {
@@ -327,6 +331,15 @@ namespace CinemaApp.Controllers
             {
                 return NotFound("User not found.");
             }
+
+            var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+
+            if (!isAdmin)
+            {
+                _ticketRepository.DeleteTicketsByUserId(userId);
+            }
+
+
 
             var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
