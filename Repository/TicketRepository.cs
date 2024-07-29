@@ -16,49 +16,47 @@ namespace CinemaApp.Repository
             _context = context;
         }
 
-        public (bool success, string error) BuyTicket(Ticket ticket)
+        public async Task<(bool success, string? error)> BuyTicketAsync(Ticket ticket)
         {
-            var seat = _context.Seats.Find(ticket.SeatId);
-
+            var seat = await _context.Seats.FindAsync(ticket.SeatId);
             if (seat == null || !seat.IsAvailable)
             {
                 return (false, "Seat is not available");
             }
-
+            
             seat.IsAvailable = false;
-            _context.Seats.Update(seat);
 
-            _context.Tickets.Add(ticket);
-            _context.SaveChanges();
+            await _context.Tickets.AddAsync(ticket);
+            await _context.SaveChangesAsync();
 
             return (true, null);
         }
 
-        public Ticket GetById(int id)
+        public async Task<Ticket?> GetByIdAsync(int id)
         {
-            return _context.Tickets.Include(p => p.Projection).Include(p => p.Seat).Include(p => p.User).FirstOrDefault(p => p.Id == id);
+            return await _context.Tickets.Include(p => p.Projection).Include(p => p.Seat).Include(p => p.User).FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public IQueryable<Ticket> GetTicketsByUserId(string userId)
+        public async Task<IEnumerable<Ticket>> GetTicketsByUserIdAsync(string userId)
         {
-            return _context.Tickets
+            return await _context.Tickets
                 .Include(t => t.Projection)
-                .ThenInclude(p => p.Movie)
-                .Include(t => t.Projection)
-                .ThenInclude(p => p.ProjectionType)
-                .Include(t => t.Projection)
-                .ThenInclude(p => p.Theater)
-                .Include(t => t.Seat)
-                .Include(t => t.User)
-                .Where(t => t.UserId == userId)
-                .AsQueryable();
+                 .ThenInclude(p => p.Movie)
+                 .Include(t => t.Projection)
+                 .ThenInclude(p => p.ProjectionType)
+                 .Include(t => t.Projection)
+                 .ThenInclude(p => p.Theater)
+                 .Include(t => t.Seat)
+                 .Include(t => t.User)
+                 .Where(t => t.UserId == userId)
+                 .ToListAsync();
         }
 
-        public void DeleteTicketsByUserId(string userId)
+        public async Task DeleteTicketsByUserIdAsync(string userId)
         {
-            var tickets = _context.Tickets.Where(t => t.UserId == userId).ToList();
+            var tickets = await _context.Tickets.Where(t => t.UserId == userId).ToListAsync();
             _context.Tickets.RemoveRange(tickets);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

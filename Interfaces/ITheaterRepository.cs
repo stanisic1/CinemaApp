@@ -4,7 +4,7 @@ namespace CinemaApp.Interfaces
 {
     public interface ITheaterRepository
     {
-        IEnumerable<Theater> GetAll();
-        Theater GetById(int id);
+        Task<IEnumerable<Theater>> GetAllAsync();
+        Task<Theater?> GetByIdAsync(int id);
     }
 }

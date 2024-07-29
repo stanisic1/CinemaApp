@@ -16,19 +16,19 @@ namespace CinemaApp.Controllers
             _projectionTypeRepository = projectionTypeRepository;
         }
 
-
         [HttpGet]
         [Route("api/projectiontypes")]
-        public IActionResult GetProjectionTypes()
+        public async Task<IActionResult> GetProjectionTypesAsync()
         {
-            var projectionTypes = _projectionTypeRepository.GetAll()
+            var projectionTypes = await _projectionTypeRepository.GetAllAsync();
+            var projectionTypesDto = projectionTypes
                 .Select(pt => new
                 {
                     pt.Id,
                     Type = pt.Type.GetDisplayName()
                 });
 
-            return Ok(projectionTypes);
+            return Ok(projectionTypesDto);
         }
     }
 }

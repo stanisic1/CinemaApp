@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CinemaApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace CinemaApp.Controllers
 {
@@ -19,7 +20,7 @@ namespace CinemaApp.Controllers
 
         [HttpGet]
         [Route("api/movies")]
-        public IActionResult GetMovies(string? titleFilter,
+        public async Task<IActionResult> GetMovies(string? titleFilter,
             string? genreFilter,
             string? distributorFilter,
             string? countryFilter,
@@ -29,14 +30,16 @@ namespace CinemaApp.Controllers
             int? yearToFilter,
             string? sortOrder)
         {
-            return Ok(_movieRepository.GetAll(titleFilter, genreFilter, distributorFilter, countryFilter, durationFrom, durationTo, yearFromFilter, yearToFilter, sortOrder).ToList());
+            var movies = await _movieRepository.GetAllAsync(titleFilter, genreFilter, distributorFilter, countryFilter, durationFrom, durationTo, yearFromFilter, yearToFilter, sortOrder);
+            return Ok(movies.ToList());
+            
         }
 
         [HttpGet]
         [Route("api/movies/{id}")]
-        public IActionResult GetMovie(int id)
+        public async Task<IActionResult> GetMovie(int id)
         {
-            var movie = _movieRepository.GetById(id);
+            var movie = await _movieRepository.GetByIdAsync(id);
             if (movie == null)
             {
                 return NotFound();
@@ -48,7 +51,7 @@ namespace CinemaApp.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("api/movies")]
-        public IActionResult PostMovie(Movie movie)
+        public async Task<IActionResult> PostMovie(Movie movie)
         {
             if (!ModelState.IsValid)
             {
@@ -59,14 +62,14 @@ namespace CinemaApp.Controllers
                 return BadRequest(new { Message = "Invalid model state.", Errors = errors });
             }
 
-            _movieRepository.Add(movie);
+            await _movieRepository.AddAsync(movie);
             return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("api/movies/{id}")]
-        public IActionResult PutMovie(int id, Movie movie)
+        public async Task<IActionResult> PutMovie(int id, Movie movie)
         {
 
             if (!ModelState.IsValid)
@@ -81,7 +84,7 @@ namespace CinemaApp.Controllers
 
             try
             {
-                _movieRepository.Update(movie);   
+                await _movieRepository.UpdateAsync(movie);   
             }
 
             catch (Exception ex)
@@ -96,21 +99,21 @@ namespace CinemaApp.Controllers
         [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("api/movies/{id}")]
-        public IActionResult DeleteMovie(int id)
+        public async Task<IActionResult> DeleteMovie(int id)
         {
-            var movie = _movieRepository.GetById(id);
+            var movie = await _movieRepository.GetByIdAsync(id);
             if (movie == null)
             {
                 return NotFound();
             }
 
-            if (_movieRepository.HasProjections(id))
+            if ( await _movieRepository.HasProjectionsAsync(id))
             {
-                _movieRepository.LogicalDelete(movie);
+                await _movieRepository.LogicalDeleteAsync(movie);
             }
             else { 
 
-                _movieRepository.Delete(movie);
+                await _movieRepository.DeleteAsync(movie);
             }
             return NoContent();
         }

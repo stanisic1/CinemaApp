@@ -4,7 +4,7 @@ namespace CinemaApp.Interfaces
 {
     public interface IMovieRepository
     {
-        IEnumerable<Movie> GetAll(string? titleFilter,
+        Task<IEnumerable<Movie>> GetAllAsync(string? titleFilter,
             string? genreFilter,
             string? distributorFilter,
             string? countryFilter,
@@ -14,11 +14,12 @@ namespace CinemaApp.Interfaces
             int? yearToFilter,
             string? sortOrder);
         Movie GetById (int id);
-        void Add(Movie movie);
-        void Update(Movie movie);
-        void Delete(Movie movie);
-        bool HasProjections(int movieId);
-        void LogicalDelete(Movie movie);
+        Task<Movie?> GetByIdAsync(int id);
+        Task AddAsync(Movie movie);
+        Task UpdateAsync(Movie movie);
+        Task DeleteAsync(Movie movie);
+        Task<bool> HasProjectionsAsync(int movieId);
+        Task LogicalDeleteAsync(Movie movie);
     }
     
 }

@@ -7,27 +7,18 @@ namespace CinemaApp.Interfaces
     public interface IProjectionRepository
     {
         IQueryable<Projection> GetProjectionsOfMovie(int movieId);
-        IQueryable<Projection> GetAll(
-          string? movieTitle,
-        DateTime? dateFrom = null,
-        DateTime? dateTo = null,
-        int? projectionTypeId = null,
-        int? theaterId = null,
-        decimal? priceFrom = null,
-        decimal? priceTo = null,
-        string sortBy = "movie",
-        bool sortDescending = false);
-        Projection GetById(int id);
-        void Add(Projection projection);
-        void AddSeats(IEnumerable<Seat> seats);
-        IEnumerable<Seat> GetSeatsByProjectionId(int projectionId);
-        void Delete(Seat seat);
-        void Update(Projection projection);
-        void Delete(Projection projection);
-        bool HasProjections(int projectionId);
-        void LogicalDelete(Projection projection);
-        List<SeatDTO> GetSeats(int projectionId);
-        void ClearProjectionsAdmin(string adminId);
-       
+        Task<IEnumerable<Projection>> GetAllAsync(string? movieTitle, DateTime? dateFrom = null, DateTime? dateTo = null, int? projectionTypeId = null, int? theaterId = null, decimal? priceFrom = null, decimal? priceTo = null, string sortBy = "movie", bool sortDescending = false);
+        Task<Projection?> GetByIdAsync(int id);
+        Task AddAsync(Projection projection);
+        Task AddSeatsAsync(IEnumerable<Seat> seats);
+        Task<IEnumerable<Seat>> GetSeatsByProjectionIdAsync(int projectionId);
+        Task DeleteSeatAsync(Seat seat);
+        Task UpdateAsync(Projection projection);
+        Task DeleteAsync(Projection projection);
+        Task<bool> HasSoldTicketsAsync(int projectionId);
+        Task LogicalDeleteAsync(Projection projection);
+        Task<IEnumerable<Seat>> GetSeatsAsync(int projectionId);
+        //void ClearProjectionsAdmin(string adminId);
+
     }
 }

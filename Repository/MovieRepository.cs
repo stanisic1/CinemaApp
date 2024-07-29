@@ -14,7 +14,7 @@ namespace CinemaApp.Repository
             this._context = context;
         }
 
-        public IEnumerable<Movie> GetAll(string? titleFilter,
+        public async Task<IEnumerable<Movie>> GetAllAsync(string? titleFilter,
             string? genreFilter,
             string? distributorFilter,
             string? countryFilter,
@@ -84,7 +84,7 @@ namespace CinemaApp.Repository
                 _ => movies.OrderBy(m => m.Title),
             };
 
-            return movies.Where(m => !m.IsDeleted).ToList();
+            return await movies.Where(m => !m.IsDeleted).ToListAsync();
         }
 
         public Movie GetById(int id)
@@ -92,42 +92,39 @@ namespace CinemaApp.Repository
             return _context.Movies.FirstOrDefault(p => p.Id == id);
         }
 
-        public void Add(Movie movie)
+        public async Task<Movie?> GetByIdAsync(int id)
         {
-            _context.Movies.Add(movie);
-            _context.SaveChanges();
+            return await _context.Movies.FindAsync(id);
         }
 
-        public void Update(Movie movie)
+        public async Task AddAsync(Movie movie)
         {
-            _context.Entry(movie).State = EntityState.Modified;
-
-            try
-            {
-                _context.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
+            await _context.Movies.AddAsync(movie);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(Movie movie)
+        public async Task UpdateAsync(Movie movie)
+        {
+            _context.Movies.Update(movie);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(Movie movie)
         {
             _context.Movies.Remove(movie);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public bool HasProjections(int movieId)
+        public async Task<bool> HasProjectionsAsync(int movieId)
         {
-            return _context.Projections.Any(p => p.MovieId == movieId);
+            return await _context.Projections.AnyAsync(p => p.MovieId == movieId);
         }
 
-        public void LogicalDelete(Movie movie)
+        public async Task LogicalDeleteAsync(Movie movie)
         {
             movie.IsDeleted = true;
             _context.Movies.Update(movie);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

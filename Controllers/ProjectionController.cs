@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CinemaApp.Controllers
@@ -33,10 +34,11 @@ namespace CinemaApp.Controllers
             _userManager = userManager;
 
         }
+
         [Authorize(Roles = "User")]
         [HttpGet]
         [Route("api/projections/movies/{id}")]
-        public IActionResult GetMovieProjections (int id)
+        public async Task<IActionResult> GetMovieProjections(int id)
         {
             var projections = _projectionRepository.GetProjectionsOfMovie(id);
 
@@ -45,60 +47,60 @@ namespace CinemaApp.Controllers
                 return NotFound();
             }
 
-            var projectionsDto = _mapper.Map<IEnumerable<ProjectionDTO>>(projections);
+            var projectionsDto = await projections
+                .ProjectTo<ProjectionDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
             return Ok(projectionsDto);
         }
 
         [HttpGet]
         [Route("api/projections")]
-        public IActionResult GetProjections(
+        public async Task<IActionResult> GetProjections(
             [FromQuery] string? movieTitle,
-        [FromQuery] DateTime? dateFrom,
-        [FromQuery] DateTime? dateTo,
-        [FromQuery] int? projectionTypeId,
-        [FromQuery] int? theaterId,
-        [FromQuery] decimal? priceFrom,
-        [FromQuery] decimal? priceTo,
-        [FromQuery] string sortBy = "movie",
-        [FromQuery] bool sortDescending = false)
+            [FromQuery] DateTime? dateFrom,
+            [FromQuery] DateTime? dateTo,
+            [FromQuery] int? projectionTypeId,
+            [FromQuery] int? theaterId,
+            [FromQuery] decimal? priceFrom,
+            [FromQuery] decimal? priceTo,
+            [FromQuery] string sortBy = "movie",
+            [FromQuery] bool sortDescending = false)
         {
-            var projections = _projectionRepository.GetAll(
-            movieTitle,
-            dateFrom,
-            dateTo,
-            projectionTypeId,
-            theaterId,
-            priceFrom,
-            priceTo,
-            sortBy,
-            sortDescending);
+            var projections = await _projectionRepository.GetAllAsync(
+                movieTitle,
+                dateFrom,
+                dateTo,
+                projectionTypeId,
+                theaterId,
+                priceFrom,
+                priceTo,
+                sortBy,
+                sortDescending);
 
             var projectionsDto = _mapper.Map<IEnumerable<ProjectionDTO>>(projections);
             return Ok(projectionsDto);
-            
         }
+
         [HttpGet]
         [Route("api/projections/{projectionId}/seats")]
-        public IActionResult GetAvailableSeats (int projectionId)
+        public async Task<IActionResult> GetAvailableSeats(int projectionId)
         {
-            var seats = _projectionRepository.GetSeats(projectionId);
+            var seats = await _projectionRepository.GetSeatsAsync(projectionId);
 
-            if(seats == null)
+            if (seats == null)
             {
                 return NotFound();
             }
 
-            var seatsDTO = _mapper.Map<IEnumerable<SeatDTO>>(seats);
-            return Ok(seatsDTO);
-
+            var seatsDto = _mapper.Map<IEnumerable<SeatDTO>>(seats);
+            return Ok(seatsDto);
         }
-
-       
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("api/projections")]
-        public IActionResult PostProjection([FromBody] AddProjectionDTO projectionDto)
+        public async Task<IActionResult> PostProjection([FromBody] AddProjectionDTO projectionDto)
         {
             if (!ModelState.IsValid)
             {
@@ -113,19 +115,19 @@ namespace CinemaApp.Controllers
                 return BadRequest(new { Message = "Projection time must be in the future." });
             }
 
-            var movie = _movieRepository.GetById(projectionDto.MovieId);
+            var movie = await _movieRepository.GetByIdAsync(projectionDto.MovieId);
             if (movie == null)
             {
                 return BadRequest(new { Message = $"Movie with ID {projectionDto.MovieId} not found." });
             }
 
-            var theater = _theaterRepository.GetById(projectionDto.TheaterId);
+            var theater = await _theaterRepository.GetByIdAsync(projectionDto.TheaterId);
             if (theater == null)
             {
                 return BadRequest(new { Message = $"Theater with ID {projectionDto.TheaterId} not found." });
             }
 
-            var projectionType = _projectionTypeRepository.GetById(projectionDto.ProjectionTypeId);
+            var projectionType = await _projectionTypeRepository.GetByIdAsync(projectionDto.ProjectionTypeId);
             if (projectionType == null)
             {
                 return BadRequest(new { Message = $"ProjectionType with ID {projectionDto.ProjectionTypeId} not found." });
@@ -137,7 +139,7 @@ namespace CinemaApp.Controllers
                 return BadRequest(new { Message = "Administrator ID not found for the current user." });
             }
 
-            var administrator = _userManager.FindByIdAsync(administratorId).Result;
+            var administrator = await _userManager.FindByIdAsync(administratorId);
             if (administrator == null)
             {
                 return BadRequest(new { Message = $"Administrator with ID {administratorId} not found." });
@@ -155,19 +157,19 @@ namespace CinemaApp.Controllers
                 Price = projectionDto.Price,
                 AdministratorId = administratorId,
                 Administrator = administrator,
-                Tickets = new List<Ticket>() 
+                Tickets = new List<Ticket>()
             };
 
-            _projectionRepository.Add(projection);
+            await _projectionRepository.AddAsync(projection);
 
-            AddSeatsForProjection(projection);
+            await AddSeatsForProjectionAsync(projection);
 
             return CreatedAtAction("GetProjection", new { id = projection.Id }, projection);
         }
 
-        private void AddSeatsForProjection(Projection projection)
+        private async Task AddSeatsForProjectionAsync(Projection projection)
         {
-            var theater = _theaterRepository.GetById(projection.TheaterId);
+            var theater = await _theaterRepository.GetByIdAsync(projection.TheaterId);
             if (theater == null)
             {
                 throw new Exception("Theater not found");
@@ -185,15 +187,14 @@ namespace CinemaApp.Controllers
                 });
             }
 
-            _projectionRepository.AddSeats(seats);
+            await _projectionRepository.AddSeatsAsync(seats);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("api/projections/{id}")]
-        public IActionResult PutProjection(int id, Projection projection)
+        public async Task<IActionResult> PutProjection(int id, Projection projection)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -206,24 +207,22 @@ namespace CinemaApp.Controllers
 
             try
             {
-                _projectionRepository.Update(projection);
+                await _projectionRepository.UpdateAsync(projection);
             }
-
             catch (Exception ex)
             {
-                return BadRequest($"Failed to update telephone. Error: {ex.Message}");
+                return BadRequest($"Failed to update projection. Error: {ex.Message}");
             }
 
             return Ok(projection);
-
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("api/projections/{id}")]
-        public IActionResult DeleteProjection(int id)
+        public async Task<IActionResult> DeleteProjection(int id)
         {
-            var projection = _projectionRepository.GetById(id);
+            var projection = await _projectionRepository.GetByIdAsync(id);
             if (projection == null)
             {
                 return NotFound();
@@ -231,23 +230,23 @@ namespace CinemaApp.Controllers
 
             bool isLogicalDelete = false;
 
-            if (_projectionRepository.HasProjections(id))
+            if (await _projectionRepository.HasSoldTicketsAsync(id))
             {
-                _projectionRepository.LogicalDelete(projection);
+                await _projectionRepository.LogicalDeleteAsync(projection);
                 isLogicalDelete = true;
             }
             else
             {
-                var relatedSeats = _projectionRepository.GetSeatsByProjectionId(id);
+                var relatedSeats = await _projectionRepository.GetSeatsByProjectionIdAsync(id);
                 if (relatedSeats.Any())
                 {
                     foreach (var seat in relatedSeats)
                     {
-                        _projectionRepository.Delete(seat);
+                        await _projectionRepository.DeleteSeatAsync(seat);
                     }
                 }
 
-                _projectionRepository.Delete(projection);
+                await _projectionRepository.DeleteAsync(projection);
             }
 
             var response = new
@@ -260,16 +259,15 @@ namespace CinemaApp.Controllers
 
         [HttpGet]
         [Route("api/projections/{id}")]
-        public IActionResult GetProjection(int id)
+        public async Task<IActionResult> GetProjection(int id)
         {
-            var projection = _projectionRepository.GetById(id);
+            var projection = await _projectionRepository.GetByIdAsync(id);
             if (projection == null)
             {
                 return NotFound();
             }
             var projectionDto = _mapper.Map<ProjectionDTO>(projection);
             return Ok(projectionDto);
-            
         }
 
     }

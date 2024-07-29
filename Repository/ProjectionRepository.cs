@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CinemaApp.Repository
 {
-    public class ProjectionRepository: IProjectionRepository
+    public class ProjectionRepository : IProjectionRepository
     {
         private readonly AppDbContext _context;
 
@@ -16,19 +16,11 @@ namespace CinemaApp.Repository
 
         public IQueryable<Projection> GetProjectionsOfMovie(int movieId)
         {
-            var query = _context.Projections
-                .Include(p => p.Movie)
-                .Include(p => p.Theater)
-                .Include(p => p.ProjectionType)
-                .Include(p => p.Tickets)
-                .Where(p => p.MovieId == movieId)
-                .AsQueryable();
-
-            return query;
+            return _context.Projections.Where(p => p.MovieId == movieId).AsQueryable();
         }
 
-        public IQueryable<Projection> GetAll(
-      string? movieTitle,
+        public async Task<IEnumerable<Projection>> GetAllAsync(
+       string? movieTitle,
        DateTime? dateFrom = null,
        DateTime? dateTo = null,
        int? projectionTypeId = null,
@@ -44,7 +36,7 @@ namespace CinemaApp.Repository
                 .Include(p => p.ProjectionType)
                 .Include(p => p.Tickets)
                 .AsQueryable();
-                
+
 
             if (!string.IsNullOrEmpty(movieTitle))
             {
@@ -90,116 +82,74 @@ namespace CinemaApp.Repository
                 _ => sortDescending ? query.OrderByDescending(p => p.Movie.Title).ThenByDescending(p => p.DateTime) : query.OrderBy(p => p.Movie.Title).ThenBy(p => p.DateTime)
             };
 
-            return query;
+            return await query.ToListAsync();
         }
 
-        public Projection GetById(int id)
+        public async Task<Projection?> GetByIdAsync(int id)
         {
-            var query = _context.Projections
-               .Include(p => p.Movie)
+            return await _context.Projections.
+                Include(p => p.Movie)
                .Include(p => p.Theater)
                .Include(p => p.ProjectionType)
-               .Include(p => p.Tickets)
-               .FirstOrDefault(p => p.Id == id);
-            return query;
-            
+               .Include(p => p.Tickets).FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public List<SeatDTO> GetSeats(int projectionId)
+        public async Task<IEnumerable<Seat>> GetSeatsAsync(int projectionId)
         {
-            var projection = _context.Projections
-                .Include(p => p.Theater)
-                .FirstOrDefault(p => p.Id == projectionId);
-
-            if (projection == null)
+            var projectionExists = await _context.Projections.Include(p => p.Theater).AnyAsync(p => p.Id == projectionId);
+            if (!projectionExists)
             {
-                return null; 
+                throw new KeyNotFoundException($"Projection with ID {projectionId} not found.");
             }
-            
-            var seats = _context.Seats
-                .Where(s => s.ProjectionId == projection.Id)
-                .Select(s => new SeatDTO
-                {
-                    Id = s.Id,
-                    Number = s.Number,
-                    IsAvailable = s.IsAvailable,
-                    Theater = projection.Theater.Type.ToString() 
-                }).ToList();
-
-            return seats;
+            return await _context.Seats.Where(s => s.ProjectionId == projectionId).ToListAsync();
         }
 
-        public void Add(Projection projection)
+        public async Task AddAsync(Projection projection)
         {
-            _context.Projections.Add(projection);
-            _context.SaveChanges();
+            await _context.Projections.AddAsync(projection);
+            await _context.SaveChangesAsync();
         }
 
-        public void AddSeats(IEnumerable<Seat> seats)
+        public async Task AddSeatsAsync(IEnumerable<Seat> seats)
         {
-            _context.Seats.AddRange(seats);
-            _context.SaveChanges();
+            await _context.Seats.AddRangeAsync(seats);
+            await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Seat> GetSeatsByProjectionId(int projectionId)
+        public async Task<IEnumerable<Seat>> GetSeatsByProjectionIdAsync(int projectionId)
         {
-            return _context.Seats.Where(s => s.ProjectionId == projectionId).ToList();
+            return await _context.Seats.Where(s => s.ProjectionId == projectionId).ToListAsync();
         }
 
-
-        public void Update(Projection projection)
+        public async Task UpdateAsync(Projection projection)
         {
-            _context.Entry(projection).State = EntityState.Modified;
-
-            try
-            {
-                _context.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
+            _context.Projections.Update(projection);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(Projection projection)
-        {
-            _context.Projections.Remove(projection);
-            _context.SaveChanges();
-        }
-
-        public void Delete(Seat seat)
+        public async Task DeleteSeatAsync(Seat seat)
         {
             _context.Seats.Remove(seat);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public bool HasProjections(int projectionId)
+        public async Task DeleteAsync(Projection projection)
         {
-            return _context.Tickets.Any(p => p.ProjectionId == projectionId);
+            _context.Projections.Remove(projection);
+            await _context.SaveChangesAsync();
         }
 
-        public void LogicalDelete(Projection projection)
+        public async Task<bool> HasSoldTicketsAsync(int projectionId)
+        {
+            return await _context.Tickets.AnyAsync(ticket => ticket.ProjectionId == projectionId);
+        }
+
+        public async Task LogicalDeleteAsync(Projection projection)
         {
             projection.IsDeleted = true;
             _context.Projections.Update(projection);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-
-        public void ClearProjectionsAdmin(string adminId)
-        {
-            
-            var projections = _context.Projections.Where(p => p.AdministratorId == adminId).ToList();
-
-        
-            foreach (var projection in projections)
-            {
-                projection.AdministratorId = null;
-            }
-
-            _context.Projections.UpdateRange(projections);
-            _context.SaveChanges();
-        }
-
 
     }
 }

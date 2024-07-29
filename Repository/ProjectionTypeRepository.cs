@@ -1,5 +1,6 @@
 ﻿using CinemaApp.Interfaces;
 using CinemaApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CinemaApp.Repository
 {
@@ -11,13 +12,15 @@ namespace CinemaApp.Repository
         {
             this._context = context;
         }
-        public IEnumerable<ProjectionType> GetAll()
+
+        public async Task<IEnumerable<ProjectionType>> GetAllAsync()
         {
-            return _context.ProjectionTypes;
+            return await _context.ProjectionTypes.ToListAsync();
         }
-        public ProjectionType GetById(int id)
+
+        public async Task<ProjectionType?> GetByIdAsync(int id)
         {
-            return _context.ProjectionTypes.FirstOrDefault(p => p.Id == id);
+            return await _context.ProjectionTypes.FindAsync(id);
         }
 
     }

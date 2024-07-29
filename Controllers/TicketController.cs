@@ -28,15 +28,15 @@ namespace CinemaApp.Controllers
         [Authorize(Roles = "User")]
         [HttpPost]
         [Route("api/tickets/buy")]
-        public IActionResult BuyTicket([FromBody] TicketDTO request)
+        public async Task<IActionResult> BuyTicketAsync([FromBody] TicketDTO request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var userId = _userManager.GetUserId(User);
-            if (string.IsNullOrEmpty(userId))
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
                 return Unauthorized();
             }
@@ -45,11 +45,11 @@ namespace CinemaApp.Controllers
             {
                 ProjectionId = request.ProjectionId,
                 SeatId = request.SeatId,
-                UserId = userId,
+                UserId = user.Id,
                 SaleDateTime = DateTime.Now
             };
 
-            var (success, error) = _ticketRepository.BuyTicket(ticket);
+            var (success, error) = await _ticketRepository.BuyTicketAsync(ticket);
 
             if (!success)
             {
@@ -61,9 +61,9 @@ namespace CinemaApp.Controllers
 
         [HttpGet]
         [Route("api/tickets/{id}")]
-        public IActionResult GetTicket(int id)
+        public async Task<IActionResult> GetTicketAsync(int id)
         {
-            var ticket = _ticketRepository.GetById(id);
+            var ticket = await _ticketRepository.GetByIdAsync(id);
             if (ticket == null)
             {
                 return NotFound();
@@ -74,17 +74,15 @@ namespace CinemaApp.Controllers
 
         [Authorize(Roles = "User")]
         [HttpGet("api/tickets/mytickets")]
-        public  IActionResult GetMyTickets()
+        public async Task<IActionResult> GetMyTicketsAsync()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
                 return Unauthorized();
             }
 
-            var tickets = _ticketRepository.GetTicketsByUserId(userId);
-
+            var tickets = await _ticketRepository.GetTicketsByUserIdAsync(user.Id);
             var ticketsDto = _mapper.Map<IEnumerable<UserTicketsDTO>>(tickets);
 
             return Ok(new { values = ticketsDto });
@@ -92,14 +90,14 @@ namespace CinemaApp.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("api/tickets/usertickets/{id}")]
-        public IActionResult GetUserTickets(string id)
+        public async Task<IActionResult> GetUserTicketsAsync(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
                 return BadRequest("User ID cannot be null or empty");
             }
 
-            var tickets = _ticketRepository.GetTicketsByUserId(id);
+            var tickets = await _ticketRepository.GetTicketsByUserIdAsync(id);
             if (tickets == null || !tickets.Any())
             {
                 return Ok(new { values = new List<UserTicketsDTO>() });
@@ -108,7 +106,6 @@ namespace CinemaApp.Controllers
             var ticketsDto = _mapper.Map<IEnumerable<UserTicketsDTO>>(tickets);
             return Ok(new { values = ticketsDto });
         }
-
 
     }
 }

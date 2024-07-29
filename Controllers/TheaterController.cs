@@ -18,9 +18,10 @@ namespace CinemaApp.Controllers
 
         [HttpGet]
         [Route("api/theaters")]
-        public IActionResult GetProjectionTypes()
+        public async Task<IActionResult> GetProjectionTypesAsync()
         {
-            var theaters = _theaterRepository.GetAll()
+            var theaters = await _theaterRepository.GetAllAsync();
+            var theatersDto = theaters
                 .Select(t => new
                 {
                     t.Id,
@@ -28,7 +29,7 @@ namespace CinemaApp.Controllers
                     Type = t.Type.GetDisplayName()
                 });
 
-            return Ok(theaters);
+            return Ok(theatersDto);
         }
     }
 }

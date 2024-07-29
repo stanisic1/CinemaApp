@@ -298,7 +298,7 @@ namespace CinemaApp.Controllers
                 });
             }
 
-            // Sorting if sortBy and sortDirection are provided
+           
             if (!string.IsNullOrEmpty(sortBy) && !string.IsNullOrEmpty(sortDirection))
             {
                 switch (sortBy.ToLower())
@@ -336,7 +336,7 @@ namespace CinemaApp.Controllers
 
             if (!isAdmin)
             {
-                _ticketRepository.DeleteTicketsByUserId(userId);
+                await _ticketRepository.DeleteTicketsByUserIdAsync(userId);
             }
 
 

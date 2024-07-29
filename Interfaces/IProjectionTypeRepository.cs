@@ -4,7 +4,7 @@ namespace CinemaApp.Interfaces
 {
     public interface IProjectionTypeRepository
     {
-        IEnumerable<ProjectionType> GetAll();
-        ProjectionType GetById(int id);
+        Task<IEnumerable<ProjectionType>> GetAllAsync();
+        Task<ProjectionType?> GetByIdAsync(int id);
     }
 }

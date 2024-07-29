@@ -4,9 +4,9 @@ namespace CinemaApp.Interfaces
 {
     public interface ITicketRepository
     {
-        public (bool success, string error) BuyTicket(Ticket ticket);
-        Ticket GetById(int id);
-        IQueryable<Ticket> GetTicketsByUserId(string userId);
-        void DeleteTicketsByUserId(string userId);
+        Task<(bool success, string? error)> BuyTicketAsync(Ticket ticket);
+        Task<Ticket?> GetByIdAsync(int id);
+        Task<IEnumerable<Ticket>> GetTicketsByUserIdAsync(string userId);
+        Task DeleteTicketsByUserIdAsync(string userId);
     }
 }
