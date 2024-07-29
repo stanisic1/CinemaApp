@@ -18,7 +18,6 @@ namespace CinemaApp.Interfaces
         Task<bool> HasSoldTicketsAsync(int projectionId);
         Task LogicalDeleteAsync(Projection projection);
         Task<IEnumerable<Seat>> GetSeatsAsync(int projectionId);
-        //void ClearProjectionsAdmin(string adminId);
 
     }
 }
