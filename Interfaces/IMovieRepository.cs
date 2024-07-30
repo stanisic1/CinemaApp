@@ -13,7 +13,6 @@ namespace CinemaApp.Interfaces
             int? yearFromFilter,
             int? yearToFilter,
             string? sortOrder);
-        Movie GetById (int id);
         Task<Movie?> GetByIdAsync(int id);
         Task AddAsync(Movie movie);
         Task UpdateAsync(Movie movie);

@@ -87,11 +87,6 @@ namespace CinemaApp.Repository
             return await movies.Where(m => !m.IsDeleted).ToListAsync();
         }
 
-        public Movie GetById(int id)
-        {
-            return _context.Movies.FirstOrDefault(p => p.Id == id);
-        }
-
         public async Task<Movie?> GetByIdAsync(int id)
         {
             return await _context.Movies.FindAsync(id);
